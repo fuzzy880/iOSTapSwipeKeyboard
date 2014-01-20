@@ -49,11 +49,19 @@
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Bl-Cb-uvR">
                     <rect key="frame" x="6" y="10" width="30" height="45"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <accessibility key="accessibilityConfiguration">
+                        <accessibilityTraits key="traits" none="YES" button="YES" keyboardKey="YES"/>
+                    </accessibility>
                     <fontDescription key="fontDescription" name="Helvetica-Light" family="Helvetica" pointSize="20"/>
                     <state key="normal" title="Q">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="keySwipedCancel:" destination="-1" eventType="touchCancel" id="hGn-dn-Edz"/>
+                        <action selector="keySwipedEnter:" destination="-1" eventType="touchDragEnter" id="WYa-52-IOy"/>
+                        <action selector="keySwipedOutside:" destination="-1" eventType="touchDragOutside" id="Tcz-nw-og6"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXK-NV-5uL">
                     <rect key="frame" x="37" y="10" width="30" height="45"/>
@@ -63,6 +71,10 @@
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="keySwipedEnter:" destination="-1" eventType="touchUpInside" id="An7-FD-ih6"/>
+                        <action selector="keySwipedOutside:" destination="-1" eventType="touchUpInside" id="DJP-a0-qw7"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EbW-cy-2c0">
                     <rect key="frame" x="68" y="10" width="30" height="45"/>

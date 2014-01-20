@@ -14,7 +14,11 @@
 
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *keys;
 
+- (IBAction)keySwipedEnter:(UIButton *)sender;
 
+- (IBAction)keySwipedOutside:(UIButton *)sender;
+
+- (IBAction)keySwipedCancel:(UIButton *)sender;
 
 
 @end

@@ -44,5 +44,82 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)touchesBegan: (NSSet *)touches withEvent: (UIEvent *)event {
+    CGPoint location = [[touches anyObject] locationInView:self.view];
+    
+    for (UIButton *b in self.keys) {
+        /*
+         if ([b subviews].count > 1) {
+            [[[b subviews] objectAtIndex:1] removeFromSuperview];
+        }
+         */
+        if(CGRectContainsPoint(b.frame, location))
+        {
+            NSLog(@"%@", b.currentTitle);
+
+            /*[self addPopupToButton:b];
+            [[UIDevice currentDevice] playInputClick];
+            [self characterPressed:b];
+            self.lastButtonPressed = b;*/
+        }
+    }
+}
+
+-(void)touchesMoved: (NSSet *)touches withEvent: (UIEvent *)event {
+    CGPoint location = [[touches anyObject] locationInView:self.view];
+    
+    for (UIButton *b in self.keys) {
+        /*
+        if ([b subviews].count > 1) {
+          [[[b subviews] objectAtIndex:1] removeFromSuperview];
+        }
+         */
+        if(CGRectContainsPoint(b.frame, location))
+        {
+            NSLog(@"%@", b.currentTitle);
+
+            /*[self addPopupToButton:b];
+            if (self.lastButtonPressed != b) {
+                self.lastButtonPressed = b;
+                [self characterPressed:b];
+            }*/
+        }
+    }
+}
+
+
+-(void) touchesEnded: (NSSet *)touches withEvent: (UIEvent *)event{
+    CGPoint location = [[touches anyObject] locationInView:self.view];
+    
+    for (UIButton *b in self.keys) {
+        /*
+         if ([b subviews].count > 1) {
+            [[[b subviews] objectAtIndex:1] removeFromSuperview];
+        }
+         */
+        if(CGRectContainsPoint(b.frame, location))
+        {
+            NSLog(@"%@", b.currentTitle);
+            /*[self characterPressed:b];
+            self.lastButtonPressed = nil;*/
+            
+        }
+    }
+}
+
+
+- (IBAction)keySwipedEnter:(UIButton *)sender {
+    //NSLog(@"%@",[sender titleLabel]);
+
+}
+
+- (IBAction)keySwipedOutside:(UIButton *)sender {
+    //NSLog(@"%@",[sender titleLabel]);
+
+}
+
+- (IBAction)keySwipedCancel:(UIButton *)sender {
+    //NSLog(@"%@",[sender titleLabel]);
+}
 
 @end

@@ -14,7 +14,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
+        self.userInteractionEnabled = YES;
+
     }
     return self;
 }
