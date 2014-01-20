@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83045840188C861200CDB2FC /* NunchuckKeyboard.xib */; };
 		83045847188C892B00CDB2FC /* NunchuckKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */; };
-		8304584A188C928400CDB2FC /* NunchuckKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 83045849188C928400CDB2FC /* NunchuckKeyboard.m */; };
+		832EFB2F188CB6E1007BB73B /* PassingTouchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */; };
 		83D8D838188B9969006C1E3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D837188B9969006C1E3D /* Foundation.framework */; };
 		83D8D83A188B9969006C1E3D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D839188B9969006C1E3D /* CoreGraphics.framework */; };
 		83D8D83C188B9969006C1E3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D83B188B9969006C1E3D /* UIKit.framework */; };
@@ -42,8 +42,8 @@
 		83045840188C861200CDB2FC /* NunchuckKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NunchuckKeyboard.xib; sourceTree = "<group>"; };
 		83045845188C892B00CDB2FC /* NunchuckKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NunchuckKeyboardView.h; sourceTree = "<group>"; };
 		83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NunchuckKeyboardView.m; sourceTree = "<group>"; };
-		83045848188C928400CDB2FC /* NunchuckKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NunchuckKeyboard.h; sourceTree = "<group>"; };
-		83045849188C928400CDB2FC /* NunchuckKeyboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NunchuckKeyboard.m; sourceTree = "<group>"; };
+		832EFB2D188CB6E1007BB73B /* PassingTouchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassingTouchButton.h; sourceTree = "<group>"; };
+		832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassingTouchButton.m; sourceTree = "<group>"; };
 		83D8D834188B9969006C1E3D /* CustomKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D8D837188B9969006C1E3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83D8D839188B9969006C1E3D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -128,10 +128,10 @@
 				83D8D847188B9969006C1E3D /* AppDelegate.m */,
 				83D8D849188B9969006C1E3D /* Main_iPhone.storyboard */,
 				83D8D84C188B9969006C1E3D /* Main_iPad.storyboard */,
-				83045848188C928400CDB2FC /* NunchuckKeyboard.h */,
-				83045849188C928400CDB2FC /* NunchuckKeyboard.m */,
 				83045845188C892B00CDB2FC /* NunchuckKeyboardView.h */,
 				83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */,
+				832EFB2D188CB6E1007BB73B /* PassingTouchButton.h */,
+				832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */,
 				83045840188C861200CDB2FC /* NunchuckKeyboard.xib */,
 				83D8D84F188B9969006C1E3D /* ViewController.h */,
 				83D8D850188B9969006C1E3D /* ViewController.m */,
@@ -271,7 +271,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8304584A188C928400CDB2FC /* NunchuckKeyboard.m in Sources */,
+				832EFB2F188CB6E1007BB73B /* PassingTouchButton.m in Sources */,
 				83045847188C892B00CDB2FC /* NunchuckKeyboardView.m in Sources */,
 				83D8D851188B9969006C1E3D /* ViewController.m in Sources */,
 				83D8D848188B9969006C1E3D /* AppDelegate.m in Sources */,
