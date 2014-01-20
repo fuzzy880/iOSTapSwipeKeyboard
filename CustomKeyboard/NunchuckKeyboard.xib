@@ -189,6 +189,9 @@
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="capsPressed" destination="1" eventType="touchUpInside" id="kPu-sx-EjN"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0L1-po-BJH" customClass="PassingTouchButton">
                     <rect key="frame" x="52" y="110" width="30" height="45"/>
@@ -261,6 +264,9 @@
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="backSpacePressed" destination="1" eventType="touchUpInside" id="qkv-HB-zUk"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EaS-so-O25" customClass="PassingTouchButton">
                     <rect key="frame" x="82" y="160" width="153" height="45"/>
@@ -270,6 +276,9 @@
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="spacePressed" destination="1" eventType="touchUpInside" id="Xlj-ob-Rw6"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7pD-LR-FJQ" customClass="PassingTouchButton">
                     <rect key="frame" x="240" y="160" width="75" height="45"/>
@@ -281,6 +290,7 @@
                     </state>
                     <connections>
                         <action selector="returnKey:" destination="1" eventType="touchUpInside" id="xhq-7m-RcI"/>
+                        <action selector="returnPressed" destination="1" eventType="touchUpInside" id="Ty3-bX-rkC"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rV7-ww-tHG" customClass="PassingTouchButton">
@@ -291,6 +301,9 @@
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="numberKeyPressed" destination="1" eventType="touchUpInside" id="MTC-Cd-ViA"/>
+                    </connections>
                 </button>
             </subviews>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -319,7 +332,6 @@
                 <outletCollection property="characterKeys" destination="sPs-Vk-kTW" id="25E-Cp-DXi"/>
                 <outletCollection property="characterKeys" destination="ETc-JP-Qfq" id="KDb-Sn-qUX"/>
                 <outletCollection property="characterKeys" destination="GoX-lf-ASQ" id="6h3-Xn-BOz"/>
-                <outletCollection property="characterKeys" destination="ZsQ-Tc-od7" id="w5W-mo-xeC"/>
                 <outletCollection property="characterKeys" destination="iBQ-UN-TKt" id="2F6-1p-1MJ"/>
                 <outletCollection property="characterKeys" destination="slA-Jk-g3X" id="q26-bX-dVd"/>
                 <outletCollection property="characterKeys" destination="FHH-vS-EBx" id="W8S-7N-lmC"/>
@@ -327,10 +339,6 @@
                 <outletCollection property="characterKeys" destination="RFa-1D-gi6" id="oQy-dw-VoE"/>
                 <outletCollection property="characterKeys" destination="68h-FJ-b32" id="bUZ-pF-iPO"/>
                 <outletCollection property="characterKeys" destination="0L1-po-BJH" id="QDF-T0-fLe"/>
-                <outletCollection property="characterKeys" destination="358-yW-JMJ" id="sun-xo-EA5"/>
-                <outletCollection property="characterKeys" destination="7pD-LR-FJQ" id="fOt-oF-aHO"/>
-                <outletCollection property="characterKeys" destination="EaS-so-O25" id="COM-VX-JYQ"/>
-                <outletCollection property="characterKeys" destination="rV7-ww-tHG" id="KO2-ks-ChQ"/>
             </connections>
         </view>
     </objects>

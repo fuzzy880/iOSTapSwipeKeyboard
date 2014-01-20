@@ -26,4 +26,15 @@
 
 -(void) setUpKeyboardKeys;
 
+- (IBAction)backSpacePressed;
+
+- (IBAction)spacePressed;
+
+- (IBAction)capsPressed;
+
+- (IBAction)numberKeyPressed;
+
+- (IBAction)returnPressed;
+
+
 @end

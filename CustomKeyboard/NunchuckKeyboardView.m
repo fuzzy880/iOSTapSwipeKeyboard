@@ -11,6 +11,8 @@
 
 @property (nonatomic, strong) UIButton *lastButton;
 
+@property (nonatomic) BOOL *capsLockBool;
+
 @end
 
 @implementation NunchuckKeyboardView
@@ -30,6 +32,7 @@
 
     return self;
 }
+
 
 - (IBAction)returnKey:(id)sender {
 }
@@ -62,6 +65,32 @@
     self.returnKey.layer.cornerRadius = 5;
     self.returnKey.layer.borderWidth = 1;
     self.returnKey.layer.borderColor = self.returnKey.tintColor.CGColor;
+}
+
+//hold down delete
+- (IBAction)backSpacePressed {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
+        NSString *previousText = [self.delegate text];
+        if ([previousText length] > 0) {
+            previousText = [previousText substringToIndex:[previousText length] - 1];
+            [self.delegate performSelector:@selector(setText:) withObject:previousText];
+
+        }
+    }
+}
+
+- (IBAction)spacePressed {
+    [self appendStringToDelegate:@" "];
+}
+
+- (IBAction)capsPressed {
+}
+
+- (IBAction)numberKeyPressed {
+}
+
+- (IBAction)returnPressed {
+    [self appendStringToDelegate:@"\n"];
 }
 
 - (void)touchesBegan: (NSSet *)touches withEvent: (UIEvent *)event {
@@ -145,9 +174,15 @@
 
 - (void) characterEntered: (UIButton *) key
 {
+    NSString *keyCharacter = [[[key titleLabel] text] lowercaseString];
+    [self appendStringToDelegate:keyCharacter];
+}
+
+-(void) appendStringToDelegate:(NSString *) string
+{
     if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
         NSString *previousText = [self.delegate text];
-        [self.delegate performSelector:@selector(setText:) withObject:[previousText stringByAppendingString:[[key titleLabel] text]]];
+        [self.delegate performSelector:@selector(setText:) withObject:[previousText stringByAppendingString:string]];
     }
 }
 
