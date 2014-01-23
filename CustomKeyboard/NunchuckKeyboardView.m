@@ -9,7 +9,15 @@
 #import "NunchuckKeyboardView.h"
 @interface NunchuckKeyboardView()
 
+@property (nonatomic, strong) NSMutableArray *buttonsPressed;
+
+@property (nonatomic, strong) NSMutableDictionary *wordsList;
+
+@property (nonatomic, strong) NSMutableString *stringBuffer;
+
 @property (nonatomic, strong) UIButton *lastButton;
+
+@property (nonatomic, strong) UIButton *secondLastButton;
 
 @property (nonatomic) BOOL *capsLockBool;
 
@@ -27,10 +35,36 @@
 		[[nib objectAtIndex:0] setFrame:frame];
         self = [nib objectAtIndex:0];
         self.userInteractionEnabled = YES;
-
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"wordlist" ofType:@"txt"];
+        NSString* content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
+        NSArray *testArray = [content componentsSeparatedByString:@"\n"];
     }
 
     return self;
+}
+
+- (NSMutableDictionary *) wordsList
+{
+    if (!_wordsList) {
+        _wordsList = [[NSMutableDictionary alloc] init];
+    }
+    return _wordsList;
+}
+
+- (NSMutableArray *) buttonsPressed
+{
+    if (!_buttonsPressed) {
+        _buttonsPressed = [[NSMutableArray alloc] init];
+    }
+    return _buttonsPressed;
+}
+
+- (NSMutableString *) stringBuffer
+{
+    if (!_stringBuffer) {
+        _stringBuffer = [[NSMutableString alloc] init];
+    }
+    return _stringBuffer;
 }
 
 
@@ -39,9 +73,8 @@
 
 - (void) setUpKeyboardKeys
 {
-    NSLog(@"test");
     for (UIButton *key in self.characterKeys) {
-        NSLog(@"%@",key.currentTitle);
+        //NSLog(@"%@",key.currentTitle);
         key.layer.cornerRadius = 5;
         key.layer.borderWidth = 1;
         key.layer.borderColor = key.tintColor.CGColor;
@@ -80,6 +113,9 @@
 }
 
 - (IBAction)spacePressed {
+    //Analyze buffer
+    [self generateSuggestions];
+    [self.stringBuffer setString:@""];
     [self appendStringToDelegate:@" "];
 }
 
@@ -107,7 +143,7 @@
             NSLog(@"touchesBegan%@", b.currentTitle);
             [self addKeyToolTip:b];
             [self characterEntered:b];
-            self.lastButton = b;
+            [self saveButtonHistory:b];
             
             /*[self addPopupToButton:b];
              [[UIDevice currentDevice] playInputClick];
@@ -129,8 +165,8 @@
         if(CGRectContainsPoint(b.frame, location))
         {
             [self addKeyToolTip:b];
-            if (self.lastButton != b) {
-                self.lastButton = b;
+            if (![self isButtonRepeated:b]) {
+                [self saveButtonHistory:b];
                 [self characterEntered:b];
                 NSLog(@"touchesMoved%@", b.currentTitle);
             }
@@ -155,11 +191,10 @@
          */
         if(CGRectContainsPoint(b.frame, location))
         {
-            if (self.lastButton != b) {
+            if (![self isButtonRepeated:b]) {
                 NSLog(@"touchedEnded%@", b.currentTitle);
                 [self characterEntered:b];
             }
-            self.lastButton = nil;
             /*[self characterPressed:b];
              self.lastButtonPressed = nil;*/
             
@@ -174,7 +209,9 @@
 
 - (void) characterEntered: (UIButton *) key
 {
+
     NSString *keyCharacter = [[[key titleLabel] text] lowercaseString];
+    [self.stringBuffer appendString:keyCharacter];
     [self appendStringToDelegate:keyCharacter];
 }
 
@@ -186,13 +223,33 @@
     }
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+- (void) saveButtonHistory:(UIButton *) key
 {
-    // Drawing code
+    for (UIButton *button in self.buttonsPressed) {
+        if (key == button) {
+            return;
+        }
+    }
+    if ([self.buttonsPressed count] >= 2) {
+        [self.buttonsPressed removeObjectAtIndex:0];
+    }
+    [self.buttonsPressed addObject:key];
 }
-*/
+
+- (BOOL) isButtonRepeated:(UIButton *) key
+{
+    for (UIButton *button in self.buttonsPressed) {
+        if (key == button) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+- (void) generateSuggestions
+{
+    NSLog(@"");
+}
 
 @end

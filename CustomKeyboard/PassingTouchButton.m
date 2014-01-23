@@ -14,6 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self addTarget:self action:@selector(buttonHighlighted) forControlEvents:UIControlEventTouchDragEnter];
         // Initialization code
     }
     return self;
@@ -38,6 +39,10 @@
 {
     [super touchesCancelled:touches withEvent:event];
     [self.nextResponder touchesCancelled:touches withEvent:event];
+}
+
+- (void) buttonHighlighted
+{
 }
 
 /*

@@ -10,6 +10,7 @@
 		83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83045840188C861200CDB2FC /* NunchuckKeyboard.xib */; };
 		83045847188C892B00CDB2FC /* NunchuckKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */; };
 		832EFB2F188CB6E1007BB73B /* PassingTouchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */; };
+		83BA42C61890A76500495E0E /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BA42C51890A76500495E0E /* wordlist.txt */; };
 		83D8D838188B9969006C1E3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D837188B9969006C1E3D /* Foundation.framework */; };
 		83D8D83A188B9969006C1E3D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D839188B9969006C1E3D /* CoreGraphics.framework */; };
 		83D8D83C188B9969006C1E3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D83B188B9969006C1E3D /* UIKit.framework */; };
@@ -44,6 +45,7 @@
 		83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NunchuckKeyboardView.m; sourceTree = "<group>"; };
 		832EFB2D188CB6E1007BB73B /* PassingTouchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassingTouchButton.h; sourceTree = "<group>"; };
 		832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassingTouchButton.m; sourceTree = "<group>"; };
+		83BA42C51890A76500495E0E /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
 		83D8D834188B9969006C1E3D /* CustomKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D8D837188B9969006C1E3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83D8D839188B9969006C1E3D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -136,6 +138,7 @@
 				83D8D84F188B9969006C1E3D /* ViewController.h */,
 				83D8D850188B9969006C1E3D /* ViewController.m */,
 				83D8D876188BAB86006C1E3D /* iOS_Keyboard.png */,
+				83BA42C51890A76500495E0E /* wordlist.txt */,
 				83D8D852188B9969006C1E3D /* Images.xcassets */,
 				83D8D83E188B9969006C1E3D /* Supporting Files */,
 			);
@@ -250,6 +253,7 @@
 				83D8D84E188B9969006C1E3D /* Main_iPad.storyboard in Resources */,
 				83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */,
 				83D8D877188BAB86006C1E3D /* iOS_Keyboard.png in Resources */,
+				83BA42C61890A76500495E0E /* wordlist.txt in Resources */,
 				83D8D853188B9969006C1E3D /* Images.xcassets in Resources */,
 				83D8D84B188B9969006C1E3D /* Main_iPhone.storyboard in Resources */,
 				83D8D842188B9969006C1E3D /* InfoPlist.strings in Resources */,
