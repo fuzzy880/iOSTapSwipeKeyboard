@@ -24,6 +24,9 @@
     [keyboard setUpKeyboardKeys];
 
 }
+- (IBAction)clearText {
+    self.textField.text = @"";
+}
 
 
 - (void)didReceiveMemoryWarning

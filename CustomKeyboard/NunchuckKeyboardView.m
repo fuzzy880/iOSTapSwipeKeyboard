@@ -11,7 +11,9 @@
 
 @property (nonatomic, strong) NSMutableArray *buttonsPressed;
 
-@property (nonatomic, strong) NSMutableDictionary *wordsList;
+@property (nonatomic, strong) NSArray *wordsList;
+
+@property (nonatomic, strong) NSArray *filtered;
 
 @property (nonatomic, strong) NSMutableString *stringBuffer;
 
@@ -37,19 +39,19 @@
         self.userInteractionEnabled = YES;
         NSString *path = [[NSBundle mainBundle] pathForResource:@"wordlist" ofType:@"txt"];
         NSString* content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
-        NSArray *testArray = [content componentsSeparatedByString:@"\n"];
+        self.wordsList = [content componentsSeparatedByString:@"\n"];
     }
 
     return self;
 }
 
-- (NSMutableDictionary *) wordsList
-{
-    if (!_wordsList) {
-        _wordsList = [[NSMutableDictionary alloc] init];
-    }
-    return _wordsList;
-}
+//- (NSMutableDictionary *) wordsList
+//{
+//    if (!_wordsList) {
+//        _wordsList = [[NSMutableDictionary alloc] init];
+//    }
+//    return _wordsList;
+//}
 
 - (NSMutableArray *) buttonsPressed
 {
@@ -65,6 +67,14 @@
         _stringBuffer = [[NSMutableString alloc] init];
     }
     return _stringBuffer;
+}
+
+- (NSArray *) filtered
+{
+    if (!_filtered) {
+        _filtered = [[NSArray alloc] init];
+    }
+    return _filtered;
 }
 
 
@@ -140,7 +150,7 @@
         
         if(CGRectContainsPoint(b.frame, location))
         {
-            NSLog(@"touchesBegan%@", b.currentTitle);
+            //NSLog(@"touchesBegan%@", b.currentTitle);
             [self addKeyToolTip:b];
             [self characterEntered:b];
             [self saveButtonHistory:b];
@@ -168,7 +178,7 @@
             if (![self isButtonRepeated:b]) {
                 [self saveButtonHistory:b];
                 [self characterEntered:b];
-                NSLog(@"touchesMoved%@", b.currentTitle);
+                //NSLog(@"touchesMoved%@", b.currentTitle);
             }
             /*[self addPopupToButton:b];
              if (self.lastButtonPressed != b) {
@@ -192,7 +202,7 @@
         if(CGRectContainsPoint(b.frame, location))
         {
             if (![self isButtonRepeated:b]) {
-                NSLog(@"touchedEnded%@", b.currentTitle);
+                //NSLog(@"touchedEnded%@", b.currentTitle);
                 [self characterEntered:b];
             }
             /*[self characterPressed:b];
@@ -213,6 +223,9 @@
     NSString *keyCharacter = [[[key titleLabel] text] lowercaseString];
     [self.stringBuffer appendString:keyCharacter];
     [self appendStringToDelegate:keyCharacter];
+    if ([self.stringBuffer length] == 1) {
+        self.filtered = [self filterByFirstLastChar];
+    }
 }
 
 -(void) appendStringToDelegate:(NSString *) string
@@ -243,13 +256,68 @@
             return true;
         }
     }
+    
+    if ([self.buttonsPressed count] >= 2) {
+        [self.buttonsPressed removeAllObjects];
+    }
     return false;
 }
 
 
 - (void) generateSuggestions
 {
-    NSLog(@"");
+    NSMutableArray *potential = [self spliceAndMatchWords:self.filtered];
+    for (NSString *word in potential) {
+        NSLog(@"%@", word);
+    }
+}
+
+- (NSArray *) filterByFirstLastChar
+{
+    NSString *firstStr = [NSString stringWithFormat:@"SELF beginswith[c] '%@'", [self.stringBuffer substringWithRange:NSMakeRange(0, 1)]];
+    NSPredicate *firstPredicate = [NSPredicate predicateWithFormat:firstStr];
+    return [self.wordsList filteredArrayUsingPredicate:firstPredicate];
+}
+
+- (NSMutableArray *) spliceAndMatchWords:(NSArray *) words
+{
+    NSMutableArray *potentialMatches = [[NSMutableArray alloc] init];
+    for (NSString *word in words) {
+        if ([self match:word]) {
+            [potentialMatches addObject:word];
+        }
+    }
+    return potentialMatches;
+}
+
+- (BOOL) match:(NSString *) candidateWord
+{
+    unsigned int length = [candidateWord length];
+//    char buffer[length + 1];
+//    [candidateWord getCharacters:buffer range:NSMakeRange(0, length)];
+    const char *candidate = [candidateWord UTF8String];
+    NSString *path = self.stringBuffer;
+    for (int i = 0; i < length; i++) {
+        path = [self split:path with:[NSString stringWithFormat:@"%c", candidate[i]]];
+        if (path == nil ) {
+            if (i + 1 >= length) {
+                return true;
+            }
+            
+            return false;
+        }
+    }
+    return true;
+}
+
+- (NSString *) split:(NSString *)string with:(NSString *)charStr
+{
+    NSRange range = [string rangeOfString:charStr];
+    if (range.location <= [string length]) {
+        return [string substringFromIndex:range.location];
+    }
+    
+    return nil;
 }
 
 @end
