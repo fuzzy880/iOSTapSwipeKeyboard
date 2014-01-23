@@ -10,6 +10,8 @@
 		83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83045840188C861200CDB2FC /* NunchuckKeyboard.xib */; };
 		83045847188C892B00CDB2FC /* NunchuckKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */; };
 		832EFB2F188CB6E1007BB73B /* PassingTouchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */; };
+		83A142981891073900F42EB6 /* STTries.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A142971891073900F42EB6 /* STTries.m */; };
+		83A1429B1891097800F42EB6 /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A1429A1891097800F42EB6 /* Node.m */; };
 		83BA42C61890A76500495E0E /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BA42C51890A76500495E0E /* wordlist.txt */; };
 		83D8D838188B9969006C1E3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D837188B9969006C1E3D /* Foundation.framework */; };
 		83D8D83A188B9969006C1E3D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D839188B9969006C1E3D /* CoreGraphics.framework */; };
@@ -45,6 +47,10 @@
 		83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NunchuckKeyboardView.m; sourceTree = "<group>"; };
 		832EFB2D188CB6E1007BB73B /* PassingTouchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassingTouchButton.h; sourceTree = "<group>"; };
 		832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassingTouchButton.m; sourceTree = "<group>"; };
+		83A142961891073900F42EB6 /* STTries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTries.h; sourceTree = "<group>"; };
+		83A142971891073900F42EB6 /* STTries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTries.m; sourceTree = "<group>"; };
+		83A142991891097800F42EB6 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
+		83A1429A1891097800F42EB6 /* Node.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Node.m; sourceTree = "<group>"; };
 		83BA42C51890A76500495E0E /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
 		83D8D834188B9969006C1E3D /* CustomKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D8D837188B9969006C1E3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -130,6 +136,10 @@
 				83D8D847188B9969006C1E3D /* AppDelegate.m */,
 				83D8D849188B9969006C1E3D /* Main_iPhone.storyboard */,
 				83D8D84C188B9969006C1E3D /* Main_iPad.storyboard */,
+				83A142991891097800F42EB6 /* Node.h */,
+				83A1429A1891097800F42EB6 /* Node.m */,
+				83A142961891073900F42EB6 /* STTries.h */,
+				83A142971891073900F42EB6 /* STTries.m */,
 				83045845188C892B00CDB2FC /* NunchuckKeyboardView.h */,
 				83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */,
 				832EFB2D188CB6E1007BB73B /* PassingTouchButton.h */,
@@ -275,7 +285,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83A142981891073900F42EB6 /* STTries.m in Sources */,
 				832EFB2F188CB6E1007BB73B /* PassingTouchButton.m in Sources */,
+				83A1429B1891097800F42EB6 /* Node.m in Sources */,
 				83045847188C892B00CDB2FC /* NunchuckKeyboardView.m in Sources */,
 				83D8D851188B9969006C1E3D /* ViewController.m in Sources */,
 				83D8D848188B9969006C1E3D /* AppDelegate.m in Sources */,

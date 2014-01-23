@@ -7,6 +7,8 @@
 //
 
 #import "NunchuckKeyboardView.h"
+#include "STTries.h"
+
 @interface NunchuckKeyboardView()
 
 @property (nonatomic, strong) NSMutableArray *buttonsPressed;
@@ -16,10 +18,6 @@
 @property (nonatomic, strong) NSArray *filtered;
 
 @property (nonatomic, strong) NSMutableString *stringBuffer;
-
-@property (nonatomic, strong) UIButton *lastButton;
-
-@property (nonatomic, strong) UIButton *secondLastButton;
 
 @property (nonatomic) BOOL *capsLockBool;
 
@@ -37,21 +35,18 @@
 		[[nib objectAtIndex:0] setFrame:frame];
         self = [nib objectAtIndex:0];
         self.userInteractionEnabled = YES;
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"wordlist" ofType:@"txt"];
-        NSString* content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
-        self.wordsList = [content componentsSeparatedByString:@"\n"];
+        STTries *wordDictionary = [[STTries alloc] init];
+        if ([wordDictionary doesExist:@"aberrational"])
+        {
+            NSLog(@"does exist");
+        } else {
+            NSLog(@"does not exist");
+
+        }
     }
 
     return self;
 }
-
-//- (NSMutableDictionary *) wordsList
-//{
-//    if (!_wordsList) {
-//        _wordsList = [[NSMutableDictionary alloc] init];
-//    }
-//    return _wordsList;
-//}
 
 - (NSMutableArray *) buttonsPressed
 {
@@ -266,10 +261,10 @@
 
 - (void) generateSuggestions
 {
-    NSMutableArray *potential = [self spliceAndMatchWords:self.filtered];
+    /*NSMutableArray *potential = [self spliceAndMatchWords:self.filtered];
     for (NSString *word in potential) {
         NSLog(@"%@", word);
-    }
+    }*/
 }
 
 - (NSArray *) filterByFirstLastChar
