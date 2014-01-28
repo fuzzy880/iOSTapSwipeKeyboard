@@ -14,7 +14,7 @@
 
 @property (nonatomic, strong) NSMutableArray *queue;
 
-@property (nonatomic, strong) NSMutableArray *candidate;
+@property (nonatomic, strong) NSMutableDictionary *candidate;
 
 @end
 
@@ -36,10 +36,10 @@
     return _queue;
 }
 
-- (NSMutableArray *) candidate
+- (NSMutableDictionary *) candidate
 {
     if (!_candidate) {
-        _candidate = [[NSMutableArray alloc] init];
+        _candidate = [[NSMutableDictionary alloc] init];
     }
     return _candidate;
 }
@@ -54,7 +54,7 @@
         content = nil;
         for (NSString *word in words) {
             const char *wordArr = [word UTF8String];
-            NSString *firstChar = [NSString stringWithFormat:@"%c", wordArr[0]];
+            NSString *firstChar = [[NSString stringWithFormat:@"%c", wordArr[0]] lowercaseString];
             Node *charRoot = [self.triesMap objectForKey:firstChar];
             if (!charRoot) {
                 charRoot = [[Node alloc] initWith:wordArr[0]];
@@ -87,11 +87,7 @@
             if (child.data == character) {
                 [localQueue addObject:child];
                 if (child.finalWord) {
-                    NSString *test = [[NSString alloc] initWithUTF8String:child.finalWord];
-                    if (test) {
-                    } else {
-                        NSLog(@"");
-                    }
+                    [self.candidate setValue:@"" forKey:child.finalWord];
                 }
             }
         }
@@ -100,7 +96,7 @@
     
 }
 
-- (void) startSpellCheck:(char) character
+- (void) inputCharForWordPrediction:(char) character
 {
     if ([self.queue count] == 0) {
         Node *first = [self.triesMap objectForKey:[NSString stringWithFormat:@"%c" , character]];
@@ -109,22 +105,19 @@
         }
     } else {
         [self runBfsIteration:character];
+        [self runBfsIteration:character];
     }
 }
 
-- (NSMutableArray *) getCandidateWords
+- (NSArray *) getCandidateWords
 {
     for (Node *node in self.queue) {
         if (node.finalWord) {
-            NSString *test = [[NSString alloc] initWithUTF8String:node.finalWord];
-            if (test) {
-                [self.candidate insertObject:test atIndex:0];
-            } else {
-                NSLog(@"");
-            }
+            [self.candidate setValue:@"" forKey:node.finalWord];
+
         }
     }
-    return self.candidate;
+    return [self.candidate allKeys];
 }
 
 - (void) resetState

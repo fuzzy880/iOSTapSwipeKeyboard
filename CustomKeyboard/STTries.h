@@ -12,7 +12,7 @@
 
 - (BOOL) doesExist:(NSString *) string;
 
-- (void) startSpellCheck:(char) character;
+- (void) inputCharForWordPrediction:(char) character;
 
 - (NSMutableArray *) getCandidateWords;
 

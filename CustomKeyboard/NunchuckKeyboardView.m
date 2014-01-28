@@ -220,11 +220,8 @@
     NSString *keyCharacter = [[[key titleLabel] text] lowercaseString];
     const char *character = [keyCharacter UTF8String];
     [self.stringBuffer appendString:keyCharacter];
-    [self.wordDictionary startSpellCheck:character[0]];
+    [self.wordDictionary inputCharForWordPrediction:character[0]];
     [self appendStringToDelegate:keyCharacter];
-    if ([self.stringBuffer length] == 1) {
-        self.filtered = [self filterByFirstLastChar];
-    }
 }
 
 -(void) appendStringToDelegate:(NSString *) string
@@ -265,63 +262,14 @@
 
 - (void) generateSuggestions
 {
-    /*NSMutableArray *potential = [self spliceAndMatchWords:self.filtered];
-    for (NSString *word in potential) {
+    NSArray *candidate = [self.wordDictionary getCandidateWords];
+    for (NSString *word in candidate) {
         NSLog(@"%@", word);
-    }*/
-    NSMutableArray *candidate = [self.wordDictionary getCandidateWords];
-    if ([candidate count] > 0) {
-        NSLog(@"%@", [candidate objectAtIndex:0]);
     }
     [self.wordDictionary resetState];
 }
 
-- (NSArray *) filterByFirstLastChar
-{
-    NSString *firstStr = [NSString stringWithFormat:@"SELF beginswith[c] '%@'", [self.stringBuffer substringWithRange:NSMakeRange(0, 1)]];
-    NSPredicate *firstPredicate = [NSPredicate predicateWithFormat:firstStr];
-    return [self.wordsList filteredArrayUsingPredicate:firstPredicate];
-}
 
-- (NSMutableArray *) spliceAndMatchWords:(NSArray *) words
-{
-    NSMutableArray *potentialMatches = [[NSMutableArray alloc] init];
-    for (NSString *word in words) {
-        if ([self match:word]) {
-            [potentialMatches addObject:word];
-        }
-    }
-    return potentialMatches;
-}
 
-- (BOOL) match:(NSString *) candidateWord
-{
-    unsigned int length = [candidateWord length];
-//    char buffer[length + 1];
-//    [candidateWord getCharacters:buffer range:NSMakeRange(0, length)];
-    const char *candidate = [candidateWord UTF8String];
-    NSString *path = self.stringBuffer;
-    for (int i = 0; i < length; i++) {
-        path = [self split:path with:[NSString stringWithFormat:@"%c", candidate[i]]];
-        if (path == nil ) {
-            if (i + 1 >= length) {
-                return true;
-            }
-            
-            return false;
-        }
-    }
-    return true;
-}
-
-- (NSString *) split:(NSString *)string with:(NSString *)charStr
-{
-    NSRange range = [string rangeOfString:charStr];
-    if (range.location <= [string length]) {
-        return [string substringFromIndex:range.location];
-    }
-    
-    return nil;
-}
 
 @end
