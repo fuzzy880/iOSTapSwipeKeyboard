@@ -10,6 +10,7 @@
 		83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83045840188C861200CDB2FC /* NunchuckKeyboard.xib */; };
 		83045847188C892B00CDB2FC /* NunchuckKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */; };
 		832EFB2F188CB6E1007BB73B /* PassingTouchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */; };
+		83864CCA18978FD300BBAF5D /* words in Resources */ = {isa = PBXBuildFile; fileRef = 83864CC918978FD300BBAF5D /* words */; };
 		83A142981891073900F42EB6 /* STTries.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A142971891073900F42EB6 /* STTries.m */; };
 		83A1429B1891097800F42EB6 /* Node.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A1429A1891097800F42EB6 /* Node.m */; };
 		83BA42C61890A76500495E0E /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BA42C51890A76500495E0E /* wordlist.txt */; };
@@ -47,6 +48,7 @@
 		83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NunchuckKeyboardView.m; sourceTree = "<group>"; };
 		832EFB2D188CB6E1007BB73B /* PassingTouchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassingTouchButton.h; sourceTree = "<group>"; };
 		832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassingTouchButton.m; sourceTree = "<group>"; };
+		83864CC918978FD300BBAF5D /* words */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words; sourceTree = "<group>"; };
 		83A142961891073900F42EB6 /* STTries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STTries.h; sourceTree = "<group>"; };
 		83A142971891073900F42EB6 /* STTries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STTries.m; sourceTree = "<group>"; };
 		83A142991891097800F42EB6 /* Node.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Node.h; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				83D8D850188B9969006C1E3D /* ViewController.m */,
 				83D8D876188BAB86006C1E3D /* iOS_Keyboard.png */,
 				83BA42C51890A76500495E0E /* wordlist.txt */,
+				83864CC918978FD300BBAF5D /* words */,
 				83D8D852188B9969006C1E3D /* Images.xcassets */,
 				83D8D83E188B9969006C1E3D /* Supporting Files */,
 			);
@@ -264,6 +267,7 @@
 				83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */,
 				83D8D877188BAB86006C1E3D /* iOS_Keyboard.png in Resources */,
 				83BA42C61890A76500495E0E /* wordlist.txt in Resources */,
+				83864CCA18978FD300BBAF5D /* words in Resources */,
 				83D8D853188B9969006C1E3D /* Images.xcassets in Resources */,
 				83D8D84B188B9969006C1E3D /* Main_iPhone.storyboard in Resources */,
 				83D8D842188B9969006C1E3D /* InfoPlist.strings in Resources */,

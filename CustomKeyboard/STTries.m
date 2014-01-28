@@ -28,7 +28,7 @@
 {
     self = [super init];
     if (self) {
-        NSString *path = [[NSBundle mainBundle] pathForResource:@"wordlist" ofType:@"txt"];
+        NSString *path = [[NSBundle mainBundle] pathForResource:@"words" ofType:@""];
         NSString* content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
         NSArray *words = [content componentsSeparatedByString:@"\n"];
         for (NSString *word in words) {
