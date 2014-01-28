@@ -10,9 +10,8 @@
 
 @interface Node()
 
-@property (nonatomic) char data;
 
-@property (nonatomic, strong) NSMutableArray *children;
+
 
 @end
 
@@ -49,6 +48,8 @@
         Node *temp = [[Node alloc] initWith:wordArr[start]];
         [temp add:wordArr from:start+1 withLength:length];
         [self.children addObject:temp];
+    } else {
+        self.finalWord = [[NSString alloc] initWithUTF8String:wordArr];
     }
 }
 

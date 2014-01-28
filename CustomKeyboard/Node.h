@@ -9,6 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface Node : NSObject
+@property (nonatomic) char data;
+@property (nonatomic) NSString *finalWord;
+@property (nonatomic, strong) NSMutableArray *children;
+
+
 
 - (id) initWith:(char)charStr;
 

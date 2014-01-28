@@ -12,5 +12,10 @@
 
 - (BOOL) doesExist:(NSString *) string;
 
+- (void) startSpellCheck:(char) character;
+
+- (NSMutableArray *) getCandidateWords;
+
+- (void) resetState;
 
 @end

@@ -21,6 +21,8 @@
 
 @property (nonatomic) BOOL *capsLockBool;
 
+@property (nonatomic, strong) STTries *wordDictionary;
+
 @end
 
 @implementation NunchuckKeyboardView
@@ -35,8 +37,8 @@
 		[[nib objectAtIndex:0] setFrame:frame];
         self = [nib objectAtIndex:0];
         self.userInteractionEnabled = YES;
-        STTries *wordDictionary = [[STTries alloc] init];
-        if ([wordDictionary doesExist:@"aberrational"])
+        self.wordDictionary = [[STTries alloc] init];
+        if ([self.wordDictionary doesExist:@"aberrational"])
         {
             NSLog(@"does exist");
         } else {
@@ -216,7 +218,9 @@
 {
 
     NSString *keyCharacter = [[[key titleLabel] text] lowercaseString];
+    const char *character = [keyCharacter UTF8String];
     [self.stringBuffer appendString:keyCharacter];
+    [self.wordDictionary startSpellCheck:character[0]];
     [self appendStringToDelegate:keyCharacter];
     if ([self.stringBuffer length] == 1) {
         self.filtered = [self filterByFirstLastChar];
@@ -265,6 +269,11 @@
     for (NSString *word in potential) {
         NSLog(@"%@", word);
     }*/
+    NSMutableArray *candidate = [self.wordDictionary getCandidateWords];
+    if ([candidate count] > 0) {
+        NSLog(@"%@", [candidate objectAtIndex:0]);
+    }
+    [self.wordDictionary resetState];
 }
 
 - (NSArray *) filterByFirstLastChar
