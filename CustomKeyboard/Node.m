@@ -75,7 +75,10 @@
     return false;
 }
 
-
+- (void) addChildrenNode:(Node *) node
+{
+    [self.children addObject:node];
+}
 
 
 @end

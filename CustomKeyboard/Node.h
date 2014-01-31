@@ -21,4 +21,6 @@
 
 - (BOOL) doesExist:(const char *)wordArr from:(NSUInteger)start withLength:(NSUInteger)length;
 
+- (void) addChildrenNode:(Node *) node;
+
 @end

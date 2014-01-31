@@ -81,7 +81,6 @@
 - (void) setUpKeyboardKeys
 {
     for (UIButton *key in self.characterKeys) {
-        //NSLog(@"%@",key.currentTitle);
         key.layer.cornerRadius = 5;
         key.layer.borderWidth = 1;
         key.layer.borderColor = key.tintColor.CGColor;
@@ -145,66 +144,37 @@
          [[[b subviews] objectAtIndex:1] removeFromSuperview];
          }
         
-        if(CGRectContainsPoint(b.frame, location))
-        {
-            //NSLog(@"touchesBegan%@", b.currentTitle);
+        if(CGRectContainsPoint(b.frame, location)) {
             [self addKeyToolTip:b];
             [self characterEntered:b];
             [self saveButtonHistory:b];
-            
-            /*[self addPopupToButton:b];
-             [[UIDevice currentDevice] playInputClick];
-             [self characterPressed:b];
-             self.lastButtonPressed = b;*/
         }
     }
 }
 
--(void)touchesMoved: (NSSet *)touches withEvent: (UIEvent *)event {
+- (void)touchesMoved: (NSSet *)touches withEvent: (UIEvent *)event {
     CGPoint location = [[touches anyObject] locationInView:self];
     
     for (UIButton *b in self.characterKeys) {
-        /*
-         if ([b subviews].count > 1) {
-         [[[b subviews] objectAtIndex:1] removeFromSuperview];
-         }
-         */
-        if(CGRectContainsPoint(b.frame, location))
-        {
+        if(CGRectContainsPoint(b.frame, location)) {
             [self addKeyToolTip:b];
             if (![self isButtonRepeated:b]) {
                 [self saveButtonHistory:b];
                 [self characterEntered:b];
-                //NSLog(@"touchesMoved%@", b.currentTitle);
             }
-            /*[self addPopupToButton:b];
-             if (self.lastButtonPressed != b) {
-             self.lastButtonPressed = b;
-             [self characterPressed:b];
-             }*/
         }
     }
 }
 
 
--(void) touchesEnded: (NSSet *)touches withEvent: (UIEvent *)event{
+- (void) touchesEnded: (NSSet *)touches withEvent: (UIEvent *)event{
     CGPoint location = [[touches anyObject] locationInView:self];
     
     for (UIButton *b in self.characterKeys) {
-        /*
-         if ([b subviews].count > 1) {
-         [[[b subviews] objectAtIndex:1] removeFromSuperview];
-         }
-         */
-        if(CGRectContainsPoint(b.frame, location))
-        {
+        if(CGRectContainsPoint(b.frame, location)) {
             if (![self isButtonRepeated:b]) {
-                //NSLog(@"touchedEnded%@", b.currentTitle);
                 [self characterEntered:b];
             }
-            /*[self characterPressed:b];
-             self.lastButtonPressed = nil;*/
-            
         }
     }
 }
@@ -224,7 +194,7 @@
     [self appendStringToDelegate:keyCharacter];
 }
 
--(void) appendStringToDelegate:(NSString *) string
+- (void) appendStringToDelegate:(NSString *) string
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
         NSString *previousText = [self.delegate text];

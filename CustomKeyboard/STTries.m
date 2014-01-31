@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSMutableArray *queue;
 
 @property (nonatomic, strong) NSMutableDictionary *candidate;
+@property (nonatomic, strong) Node *node;
 
 @end
 
@@ -52,6 +53,8 @@
         NSString* content = [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:NULL];
         NSArray *words = [content componentsSeparatedByString:@"\n"];
         content = nil;
+        Node *triesRoot = [[Node alloc] init];
+        
         for (NSString *word in words) {
             const char *wordArr = [word UTF8String];
             NSString *firstChar = [[NSString stringWithFormat:@"%c", wordArr[0]] lowercaseString];
@@ -59,11 +62,55 @@
             if (!charRoot) {
                 charRoot = [[Node alloc] initWith:wordArr[0]];
                 [self.triesMap setValue:charRoot forKey:firstChar];
+                [triesRoot addChildrenNode:charRoot];
             }
             [charRoot add:wordArr from:1 withLength:[word length]];
         }
+        self.node = triesRoot;
+
     }
+    [self buildSuccintTrie];
     return self;
+}
+
+- (void) buildSuccintTrie
+{
+    long long counter = 0;
+    long long nodeNum = -1;
+    CFMutableBitVectorRef trieStruct = CFBitVectorCreateMutable(NULL, 0);
+    NSMutableArray *charData = [[NSMutableArray alloc] init];
+    /*for (int i = 0; i < 30; i++) {
+        CFBitVectorSetBitAtIndex(trieStruct, i, 1);
+    }
+    CFBitVectorSetBitAtIndex(trieStruct, 1, 0);
+    CFBitVectorSetBitAtIndex(trieStruct, 29, 0);
+    counter = 30;
+    for (int i = 0; i < 30; i++) {
+        NSLog(@"%d", CFBitVectorGetBitAtIndex(trieStruct, i));
+    }*/
+    CFBitVectorSetBitAtIndex(trieStruct, counter++, 1);
+    CFBitVectorSetBitAtIndex(trieStruct, counter++, 0);
+
+    NSMutableArray *localQueue = [[NSMutableArray alloc] init];
+    [localQueue addObject:self.node];
+    while ([localQueue count] > 0) {
+        Node *temp = [localQueue objectAtIndex:0];
+        if (!temp) {
+            return;
+        }
+        [localQueue removeObjectAtIndex:0];
+        nodeNum++;
+        for (Node *child in temp.children) {
+            CFBitVectorSetBitAtIndex(trieStruct, counter++, 1);
+            [localQueue addObject:child];
+        }
+        CFBitVectorSetBitAtIndex(trieStruct, counter++, 0);
+        //[charData addObject:[[NSString stringWithFormat:@"%c", temp.data] lowercaseString]];
+        
+    }
+    
+    NSLog(@"");
+
 }
 
 - (BOOL) doesExist:(NSString *) string
