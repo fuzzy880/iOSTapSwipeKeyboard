@@ -11,11 +11,11 @@
 
 @interface SuccinctTries()
 
-@property (nonatomic) CFMutableBitVectorRef nodePointers;
+@property (nonatomic) const char *nodePointers;
 
 @property (nonatomic) const char *nodeChar;
 
-@property (nonatomic, strong) NSMutableDictionary *nodeWords;
+@property (nonatomic, strong) NSArray *nodeWords;
 
 @end
 
@@ -26,26 +26,29 @@
 {
     self = [super init];
     if (self) {
-        self.nodePointers = CFBitVectorCreateMutable(NULL, 1517319);
+        //self.nodePointers = CFBitVectorCreateMutable(NULL, 0);
         NSString *bitPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_array" ofType:@"txt"];
         NSString* bitString = [NSString stringWithContentsOfFile:bitPath encoding:NSUTF8StringEncoding error:NULL];
-        const char *bitArray = [bitString UTF8String];
-        for (int i = 0; i < [bitString length]; i++) {
+        self.nodePointers = [bitString UTF8String];
+        /*for (int i = 0; i < [bitString length]; i++) {
             CFBitVectorSetBitAtIndex(self.nodePointers, i, bitArray[i]);
-        }
+        }*/
         
-        self.nodeChar = malloc(sizeof(char) * NODE_COUNT);
         NSString *charPath = [[NSBundle mainBundle] pathForResource:@"char_data_array" ofType:@"txt"];
         NSString* charString = [NSString stringWithContentsOfFile:charPath encoding:NSUTF8StringEncoding error:NULL];
         self.nodeChar = [charString UTF8String];
         
         NSString *stringPath = [[NSBundle mainBundle] pathForResource:@"string_data_array" ofType:@"txt"];
         NSString* stringDump = [NSString stringWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:NULL];
-        
-
+        self.nodeWords = [stringDump componentsSeparatedByString:@"\n"];
+        NSLog(@"");
     }
     
     return self;
 }
 
 @end
+
+
+
+

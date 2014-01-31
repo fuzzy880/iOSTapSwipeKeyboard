@@ -8,6 +8,7 @@
 
 #import "NunchuckKeyboardView.h"
 #include "STTries.h"
+#include "SuccinctTries.h"
 
 @interface NunchuckKeyboardView()
 
@@ -37,14 +38,15 @@
 		[[nib objectAtIndex:0] setFrame:frame];
         self = [nib objectAtIndex:0];
         self.userInteractionEnabled = YES;
-        self.wordDictionary = [[STTries alloc] init];
-        if ([self.wordDictionary doesExist:@"aberrational"])
-        {
-            NSLog(@"does exist");
-        } else {
-            NSLog(@"does not exist");
-
-        }
+//        self.wordDictionary = [[STTries alloc] init];
+//        if ([self.wordDictionary doesExist:@"aberrational"])
+//        {
+//            NSLog(@"does exist");
+//        } else {
+//            NSLog(@"does not exist");
+//
+//        }
+        SuccinctTries *tries = [[SuccinctTries alloc] init];
     }
 
     return self;

@@ -17,7 +17,7 @@
 		83BEBCD1189B516100D143DC /* SuccinctTries.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BEBCD0189B516100D143DC /* SuccinctTries.m */; };
 		83BEBCD5189B519300D143DC /* char_data_array.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BEBCD2189B519300D143DC /* char_data_array.txt */; };
 		83BEBCD7189B519300D143DC /* trie_bit_array.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BEBCD4189B519300D143DC /* trie_bit_array.txt */; };
-		83BEBCD9189B602700D143DC /* string_data_array.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BEBCD8189B602700D143DC /* string_data_array.txt */; };
+		83BEBCDD189B659500D143DC /* string_data_array.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BEBCDC189B659500D143DC /* string_data_array.txt */; };
 		83D8D838188B9969006C1E3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D837188B9969006C1E3D /* Foundation.framework */; };
 		83D8D83A188B9969006C1E3D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D839188B9969006C1E3D /* CoreGraphics.framework */; };
 		83D8D83C188B9969006C1E3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D83B188B9969006C1E3D /* UIKit.framework */; };
@@ -62,7 +62,7 @@
 		83BEBCD0189B516100D143DC /* SuccinctTries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuccinctTries.m; sourceTree = "<group>"; };
 		83BEBCD2189B519300D143DC /* char_data_array.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = char_data_array.txt; sourceTree = "<group>"; };
 		83BEBCD4189B519300D143DC /* trie_bit_array.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trie_bit_array.txt; sourceTree = "<group>"; };
-		83BEBCD8189B602700D143DC /* string_data_array.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string_data_array.txt; sourceTree = "<group>"; };
+		83BEBCDC189B659500D143DC /* string_data_array.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string_data_array.txt; sourceTree = "<group>"; };
 		83D8D834188B9969006C1E3D /* CustomKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D8D837188B9969006C1E3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83D8D839188B9969006C1E3D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -165,7 +165,7 @@
 				83864CC918978FD300BBAF5D /* words */,
 				83BEBCD2189B519300D143DC /* char_data_array.txt */,
 				83BEBCD4189B519300D143DC /* trie_bit_array.txt */,
-				83BEBCD8189B602700D143DC /* string_data_array.txt */,
+				83BEBCDC189B659500D143DC /* string_data_array.txt */,
 				83D8D852188B9969006C1E3D /* Images.xcassets */,
 				83D8D83E188B9969006C1E3D /* Supporting Files */,
 			);
@@ -287,7 +287,7 @@
 				83BEBCD5189B519300D143DC /* char_data_array.txt in Resources */,
 				83D8D84B188B9969006C1E3D /* Main_iPhone.storyboard in Resources */,
 				83D8D842188B9969006C1E3D /* InfoPlist.strings in Resources */,
-				83BEBCD9189B602700D143DC /* string_data_array.txt in Resources */,
+				83BEBCDD189B659500D143DC /* string_data_array.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
