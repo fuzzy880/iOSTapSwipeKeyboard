@@ -47,6 +47,8 @@
 //
 //        }
         self.wordDictionary = [[SuccinctTries alloc] init];
+        
+        [self.wordDictionary find:@"test" with:0 at:0];
     }
 
     return self;

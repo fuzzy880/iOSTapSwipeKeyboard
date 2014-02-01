@@ -14,7 +14,14 @@
 
 @interface SuccinctTries()
 
+@property (nonatomic, strong) NSString *nodePointers;
+
+@property (nonatomic, strong) NSString *nodeChar;
+
 @property (nonatomic, strong) NSArray *nodeWords;
+
+@property (nonatomic, strong) NSArray *nodePointerDir;
+
 
 @property (nonatomic, strong) NSMutableArray *queue;
 
@@ -23,28 +30,36 @@
 @end
 
 
-@implementation SuccinctTries{
-    const char *nodePointers;
-    const char *nodeChar;
-}
+@implementation SuccinctTries
 
 - (id) init
 {
     self = [super init];
     if (self) {
         NSString *bitPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_array" ofType:@"txt"];
-        NSString* bitString = [NSString stringWithContentsOfFile:bitPath encoding:NSUTF8StringEncoding error:NULL];
-        nodePointers = [bitString UTF8String];
+        self.nodePointers = [NSString stringWithContentsOfFile:bitPath encoding:NSUTF8StringEncoding error:NULL];
+        //nodePointers = [bitString UTF8String];
         
         NSString *charPath = [[NSBundle mainBundle] pathForResource:@"char_data_array" ofType:@"txt"];
-        NSString* charString = [NSString stringWithContentsOfFile:charPath encoding:NSUTF8StringEncoding error:NULL];
-        nodeChar = [charString UTF8String];
+        self.nodeChar = [NSString stringWithContentsOfFile:charPath encoding:NSUTF8StringEncoding error:NULL];
+        //nodeChar = [charString UTF8String];
         
         NSString *stringPath = [[NSBundle mainBundle] pathForResource:@"string_data_array" ofType:@"txt"];
         NSString* stringDump = [NSString stringWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:NULL];
         self.nodeWords = [stringDump componentsSeparatedByString:@"\n"];
+        
+        NSString *bitDirPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_dir" ofType:@"txt"];
+        NSString* bitDirDump = [NSString stringWithContentsOfFile:bitDirPath encoding:NSUTF8StringEncoding error:NULL];
+        self.nodePointerDir = [bitDirDump componentsSeparatedByString:@"\n"];
+//        for (NSString *word in self.nodeWords) {
+//            if (![word isEqualToString:@" "]) {
+//                if([self find:word with:0 at:0] == NO) {
+//                    NSLog(@"");
+//                }
+//            }
+//        }
     }
-    
+
     return self;
 }
 
@@ -73,7 +88,7 @@
         int firstChild = [self firstChild:[state nodeNum]];
         int numChildren = [self getChildren:[state nodeNum]];
         for (int i = 0; i < numChildren; i++) {
-            if (nodeChar[firstChild+i] == character) {
+            if ([self.nodeChar characterAtIndex:firstChild+i] == character) {
                 //NSString *newPrefix = [[state prefix] stringByAppendingFormat:@"%c", character];
                 [localQueue addObject:[[STState alloc] initAtNode:(firstChild+i) withCurrentPrefix:state.prefix withErrorCount:state.editDist]];
                 if (![[self.nodeWords objectAtIndex:(firstChild + i)] isEqualToString:@" "]) {
@@ -119,7 +134,7 @@
         for (int i = 0; i < numChildren; i++) {
             //char test1 = self.nodeChar[firstChild+i];
             //char test2=[word characterAtIndex:start];
-            if (nodeChar[firstChild+i] == [word characterAtIndex:start]) {
+            if ([self.nodeChar characterAtIndex:(firstChild+i)] == [word characterAtIndex:start]) {
                 int node = (firstChild+i);
                 return [self find:word with:(start + 1) at:node];
             }
@@ -149,26 +164,47 @@
 
 - (int) rankNode:(int) position
 {
+//    int dirIndex = position/50;
+//    int leftover = position%50;
+//    int count = 0;
+//    for (int q = dirIndex; q <= position; q++) {
+//        if([self.nodePointers characterAtIndex:q] == '1') {
+//            count++;
+//        }
+//    }
+    
     int counter = 0;
     for (int i = 0; i <= position; i++) {
-        if(nodePointers[i] == '1') {
+        if([self.nodePointers characterAtIndex:i] == '1') {
             counter++;
         }
     }
+//    if (counter == (count + [[self.nodePointerDir objectAtIndex:dirIndex] intValue])) {
+//        NSLog(@"truee");
+//    } else {
+//        NSLog(@"flase");
+//    }
     return counter;
 }
 
 - (int) selectNode:(int) position
 {
-    int counter = position;
-    for (int i = 0; i < BIT_COUNT; i++) {
-        if(nodePointers[i] == '0') {
-            counter--;
-            if (counter == 0) {
-                return i;
+    int dirIndex = position/50;
+
+    int count = position - dirIndex*50;
+    if (dirIndex*50 > 0) {
+        count++;
+    }
+    int qWin = [[self.nodePointerDir objectAtIndex:dirIndex] intValue];
+    for (int q = qWin; q < BIT_COUNT; q++) {
+        if([self.nodePointers characterAtIndex:q] == '0') {
+            count--;
+            if (count == 0) {
+                return q;
             }
         }
     }
+
     return -1;
 }
 
