@@ -7,10 +7,11 @@
 //
 
 #import "NunchuckKeyboardView.h"
-#include "STTries.h"
 #include "SuccinctTries.h"
 
-@interface NunchuckKeyboardView()
+@interface NunchuckKeyboardView() {
+    dispatch_queue_t queue;
+}
 
 @property (nonatomic, strong) NSMutableArray *buttonsPressed;
 
@@ -47,8 +48,8 @@
 //
 //        }
         self.wordDictionary = [[SuccinctTries alloc] init];
-        
-        [self.wordDictionary find:@"test" with:0 at:0];
+        queue = dispatch_queue_create("inputQueue", 0);
+        //[self.wordDictionary find:@"test" with:0 at:0];
     }
 
     return self;
@@ -124,8 +125,11 @@
 
 - (IBAction)spacePressed {
     //Analyze buffer
-    [self generateSuggestions];
-    [self.stringBuffer setString:@""];
+    dispatch_async(queue, ^{
+        [self generateSuggestions];
+        [self.stringBuffer setString:@""];
+        //
+    });
     [self appendStringToDelegate:@" "];
 }
 
@@ -194,7 +198,10 @@
     NSString *keyCharacter = [[[key titleLabel] text] lowercaseString];
     const char *character = [keyCharacter UTF8String];
     [self.stringBuffer appendString:keyCharacter];
-    [self.wordDictionary inputCharForWordPrediction:character[0]];
+    dispatch_async(queue, ^{
+        [self.wordDictionary inputCharForWordPrediction:character[0]];
+    });
+    
     [self appendStringToDelegate:keyCharacter];
 }
 
