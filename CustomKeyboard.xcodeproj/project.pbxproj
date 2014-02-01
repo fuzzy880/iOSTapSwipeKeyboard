@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83045840188C861200CDB2FC /* NunchuckKeyboard.xib */; };
 		83045847188C892B00CDB2FC /* NunchuckKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */; };
+		83175F7C189C363800E8487A /* STState.m in Sources */ = {isa = PBXBuildFile; fileRef = 83175F7B189C363800E8487A /* STState.m */; };
+		8322E2BD189B6A1700E9F090 /* string_data_array1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8322E2BC189B6A1700E9F090 /* string_data_array1.txt */; };
 		832EFB2F188CB6E1007BB73B /* PassingTouchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */; };
 		83864CCA18978FD300BBAF5D /* words in Resources */ = {isa = PBXBuildFile; fileRef = 83864CC918978FD300BBAF5D /* words */; };
 		83A142981891073900F42EB6 /* STTries.m in Sources */ = {isa = PBXBuildFile; fileRef = 83A142971891073900F42EB6 /* STTries.m */; };
@@ -50,6 +52,9 @@
 		83045840188C861200CDB2FC /* NunchuckKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NunchuckKeyboard.xib; sourceTree = "<group>"; };
 		83045845188C892B00CDB2FC /* NunchuckKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NunchuckKeyboardView.h; sourceTree = "<group>"; };
 		83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NunchuckKeyboardView.m; sourceTree = "<group>"; };
+		83175F7A189C363800E8487A /* STState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STState.h; sourceTree = "<group>"; };
+		83175F7B189C363800E8487A /* STState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STState.m; sourceTree = "<group>"; };
+		8322E2BC189B6A1700E9F090 /* string_data_array1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string_data_array1.txt; sourceTree = "<group>"; };
 		832EFB2D188CB6E1007BB73B /* PassingTouchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassingTouchButton.h; sourceTree = "<group>"; };
 		832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassingTouchButton.m; sourceTree = "<group>"; };
 		83864CC918978FD300BBAF5D /* words */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words; sourceTree = "<group>"; };
@@ -151,6 +156,8 @@
 				83A1429A1891097800F42EB6 /* Node.m */,
 				83A142961891073900F42EB6 /* STTries.h */,
 				83A142971891073900F42EB6 /* STTries.m */,
+				83175F7A189C363800E8487A /* STState.h */,
+				83175F7B189C363800E8487A /* STState.m */,
 				83BEBCCF189B516100D143DC /* SuccinctTries.h */,
 				83BEBCD0189B516100D143DC /* SuccinctTries.m */,
 				83045845188C892B00CDB2FC /* NunchuckKeyboardView.h */,
@@ -166,6 +173,7 @@
 				83BEBCD2189B519300D143DC /* char_data_array.txt */,
 				83BEBCD4189B519300D143DC /* trie_bit_array.txt */,
 				83BEBCDC189B659500D143DC /* string_data_array.txt */,
+				8322E2BC189B6A1700E9F090 /* string_data_array1.txt */,
 				83D8D852188B9969006C1E3D /* Images.xcassets */,
 				83D8D83E188B9969006C1E3D /* Supporting Files */,
 			);
@@ -288,6 +296,7 @@
 				83D8D84B188B9969006C1E3D /* Main_iPhone.storyboard in Resources */,
 				83D8D842188B9969006C1E3D /* InfoPlist.strings in Resources */,
 				83BEBCDD189B659500D143DC /* string_data_array.txt in Resources */,
+				8322E2BD189B6A1700E9F090 /* string_data_array1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,6 +321,7 @@
 				83045847188C892B00CDB2FC /* NunchuckKeyboardView.m in Sources */,
 				83D8D851188B9969006C1E3D /* ViewController.m in Sources */,
 				83BEBCD1189B516100D143DC /* SuccinctTries.m in Sources */,
+				83175F7C189C363800E8487A /* STState.m in Sources */,
 				83D8D848188B9969006C1E3D /* AppDelegate.m in Sources */,
 				83D8D844188B9969006C1E3D /* main.m in Sources */,
 			);

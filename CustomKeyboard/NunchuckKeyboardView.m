@@ -22,7 +22,7 @@
 
 @property (nonatomic) BOOL *capsLockBool;
 
-@property (nonatomic, strong) STTries *wordDictionary;
+@property (nonatomic, strong) SuccinctTries *wordDictionary;
 
 @end
 
@@ -46,7 +46,7 @@
 //            NSLog(@"does not exist");
 //
 //        }
-        SuccinctTries *tries = [[SuccinctTries alloc] init];
+        self.wordDictionary = [[SuccinctTries alloc] init];
     }
 
     return self;
