@@ -36,19 +36,19 @@
 {
     self = [super init];
     if (self) {
-        NSString *bitPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_array" ofType:@"txt"];
+        NSString *bitPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_array_v2" ofType:@"txt"];
         self.nodePointers = [NSString stringWithContentsOfFile:bitPath encoding:NSUTF8StringEncoding error:NULL];
         //nodePointers = [bitString UTF8String];
         
-        NSString *charPath = [[NSBundle mainBundle] pathForResource:@"char_data_array" ofType:@"txt"];
+        NSString *charPath = [[NSBundle mainBundle] pathForResource:@"char_data_array_v2" ofType:@"txt"];
         self.nodeChar = [NSString stringWithContentsOfFile:charPath encoding:NSUTF8StringEncoding error:NULL];
         //nodeChar = [charString UTF8String];
         
-        NSString *stringPath = [[NSBundle mainBundle] pathForResource:@"string_data_array" ofType:@"txt"];
+        NSString *stringPath = [[NSBundle mainBundle] pathForResource:@"string_data_array_v2" ofType:@"txt"];
         NSString* stringDump = [NSString stringWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:NULL];
         self.nodeWords = [stringDump componentsSeparatedByString:@"\n"];
         
-        NSString *bitDirPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_dir" ofType:@"txt"];
+        NSString *bitDirPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_dir_v2" ofType:@"txt"];
         NSString* bitDirDump = [NSString stringWithContentsOfFile:bitDirPath encoding:NSUTF8StringEncoding error:NULL];
         self.nodePointerDir = [bitDirDump componentsSeparatedByString:@"\n"];
 //        for (NSString *word in self.nodeWords) {

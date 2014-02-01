@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */ = {isa = PBXBuildFile; fileRef = 83045840188C861200CDB2FC /* NunchuckKeyboard.xib */; };
 		83045847188C892B00CDB2FC /* NunchuckKeyboardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */; };
+		830C0381189DAF740062E94B /* trie_bit_array_v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 830C037F189DAF740062E94B /* trie_bit_array_v2.txt */; };
+		830C0382189DAF740062E94B /* trie_bit_dir_v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 830C0380189DAF740062E94B /* trie_bit_dir_v2.txt */; };
+		830C0385189DAFBF0062E94B /* char_data_array_v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 830C0383189DAFBF0062E94B /* char_data_array_v2.txt */; };
+		830C0386189DAFBF0062E94B /* string_data_array_v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 830C0384189DAFBF0062E94B /* string_data_array_v2.txt */; };
+		830C0388189DB3520062E94B /* rank_data_array_v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 830C0387189DB3520062E94B /* rank_data_array_v2.txt */; };
 		83175F7C189C363800E8487A /* STState.m in Sources */ = {isa = PBXBuildFile; fileRef = 83175F7B189C363800E8487A /* STState.m */; };
 		83175F82189CD48100E8487A /* trie_bit_dir.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83175F81189CD48100E8487A /* trie_bit_dir.txt */; };
 		8322E2BD189B6A1700E9F090 /* string_data_array1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8322E2BC189B6A1700E9F090 /* string_data_array1.txt */; };
@@ -51,6 +56,11 @@
 		83045840188C861200CDB2FC /* NunchuckKeyboard.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NunchuckKeyboard.xib; sourceTree = "<group>"; };
 		83045845188C892B00CDB2FC /* NunchuckKeyboardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NunchuckKeyboardView.h; sourceTree = "<group>"; };
 		83045846188C892B00CDB2FC /* NunchuckKeyboardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NunchuckKeyboardView.m; sourceTree = "<group>"; };
+		830C037F189DAF740062E94B /* trie_bit_array_v2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trie_bit_array_v2.txt; sourceTree = "<group>"; };
+		830C0380189DAF740062E94B /* trie_bit_dir_v2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trie_bit_dir_v2.txt; sourceTree = "<group>"; };
+		830C0383189DAFBF0062E94B /* char_data_array_v2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = char_data_array_v2.txt; sourceTree = "<group>"; };
+		830C0384189DAFBF0062E94B /* string_data_array_v2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string_data_array_v2.txt; sourceTree = "<group>"; };
+		830C0387189DB3520062E94B /* rank_data_array_v2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rank_data_array_v2.txt; sourceTree = "<group>"; };
 		83175F7A189C363800E8487A /* STState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STState.h; sourceTree = "<group>"; };
 		83175F7B189C363800E8487A /* STState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STState.m; sourceTree = "<group>"; };
 		83175F81189CD48100E8487A /* trie_bit_dir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trie_bit_dir.txt; sourceTree = "<group>"; };
@@ -168,6 +178,11 @@
 				8322E2BC189B6A1700E9F090 /* string_data_array1.txt */,
 				83175F81189CD48100E8487A /* trie_bit_dir.txt */,
 				83D8D852188B9969006C1E3D /* Images.xcassets */,
+				830C037F189DAF740062E94B /* trie_bit_array_v2.txt */,
+				830C0380189DAF740062E94B /* trie_bit_dir_v2.txt */,
+				830C0383189DAFBF0062E94B /* char_data_array_v2.txt */,
+				830C0384189DAFBF0062E94B /* string_data_array_v2.txt */,
+				830C0387189DB3520062E94B /* rank_data_array_v2.txt */,
 				83D8D83E188B9969006C1E3D /* Supporting Files */,
 			);
 			path = CustomKeyboard;
@@ -278,11 +293,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				830C0385189DAFBF0062E94B /* char_data_array_v2.txt in Resources */,
+				830C0382189DAF740062E94B /* trie_bit_dir_v2.txt in Resources */,
+				830C0388189DB3520062E94B /* rank_data_array_v2.txt in Resources */,
+				830C0381189DAF740062E94B /* trie_bit_array_v2.txt in Resources */,
 				83D8D84E188B9969006C1E3D /* Main_iPad.storyboard in Resources */,
 				83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */,
 				83D8D877188BAB86006C1E3D /* iOS_Keyboard.png in Resources */,
 				83BEBCD7189B519300D143DC /* trie_bit_array.txt in Resources */,
 				83175F82189CD48100E8487A /* trie_bit_dir.txt in Resources */,
+				830C0386189DAFBF0062E94B /* string_data_array_v2.txt in Resources */,
 				83BA42C61890A76500495E0E /* wordlist.txt in Resources */,
 				83864CCA18978FD300BBAF5D /* words in Resources */,
 				83D8D853188B9969006C1E3D /* Images.xcassets in Resources */,
