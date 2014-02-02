@@ -18,9 +18,8 @@
 
 @property (nonatomic, strong) NSString *nodeChar;
 
-@property (nonatomic, strong) NSArray *nodeWords;
+@property (nonatomic, strong) NSArray *wordRank;
 
-@property (nonatomic, strong) NSArray *nodeRank;
 
 @property (nonatomic, strong) NSArray *nodePointerDir;
 
@@ -40,19 +39,14 @@
     if (self) {
         NSString *bitPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_array_v2" ofType:@"txt"];
         self.nodePointers = [NSString stringWithContentsOfFile:bitPath encoding:NSUTF8StringEncoding error:NULL];
-        //nodePointers = [bitString UTF8String];
         
         NSString *charPath = [[NSBundle mainBundle] pathForResource:@"char_data_array_v2" ofType:@"txt"];
         self.nodeChar = [NSString stringWithContentsOfFile:charPath encoding:NSUTF8StringEncoding error:NULL];
-        //nodeChar = [charString UTF8String];
         
         NSString *rankPath = [[NSBundle mainBundle] pathForResource:@"rank_data_array_v2" ofType:@"txt"];
         NSString* rankDump = [NSString stringWithContentsOfFile:rankPath encoding:NSUTF8StringEncoding error:NULL];
-        self.nodeWords = [rankDump componentsSeparatedByString:@"\n"];
+        self.wordRank = [rankDump componentsSeparatedByString:@"\n"];
         
-        NSString *stringPath = [[NSBundle mainBundle] pathForResource:@"string_data_array_v2" ofType:@"txt"];
-        NSString* stringDump = [NSString stringWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:NULL];
-        self.nodeRank = [stringDump componentsSeparatedByString:@"\n"];
         
         NSString *bitDirPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_dir_v2" ofType:@"txt"];
         NSString* bitDirDump = [NSString stringWithContentsOfFile:bitDirPath encoding:NSUTF8StringEncoding error:NULL];
@@ -81,9 +75,6 @@
 
 - (void) runBfsIteration:(char) character
 {
-    
-    //Node *temp = [self.queue objectAtIndex:0];
-    //[self.queue removeObjectAtIndex:0];
     NSMutableArray *localQueue = [[NSMutableArray alloc] init];
     for (STState *state in self.queue) {
         int firstChild = [self firstChild:[state nodeNum]];
@@ -92,12 +83,9 @@
             if ([self.nodeChar characterAtIndex:firstChild+i] == character) {
                 NSString *newPrefix = [[state prefix] stringByAppendingFormat:@"%c", character];
                 [localQueue addObject:[[STState alloc] initAtNode:(firstChild+i) withCurrentPrefix:newPrefix withErrorCount:state.editDist]];
-                int test = (firstChild + i);
-                if (![[self.nodeWords objectAtIndex:(firstChild + i)] isEqualToString:@" "]) {
-                    NSString *test1111 = [self.nodeWords objectAtIndex:(firstChild + i)];
-                    NSNumber *rank = [NSNumber numberWithInt:[[self.nodeWords objectAtIndex:(firstChild + i)] intValue]];
+                if (![[self.wordRank objectAtIndex:(firstChild + i)] isEqualToString:@" "]) {
+                    NSNumber *rank = [NSNumber numberWithInt:[[self.wordRank objectAtIndex:(firstChild + i)] intValue]];
                     [self.candidate setObject:newPrefix forKey:rank];
-                    //[self.candidate setObject:@"" forKey:newPrefix];
                 }
             }
         }
@@ -137,15 +125,13 @@
         int firstChild = [self firstChild:nodeNum];
         int numChildren = [self getChildren:nodeNum];
         for (int i = 0; i < numChildren; i++) {
-            //char test1 = self.nodeChar[firstChild+i];
-            //char test2=[word characterAtIndex:start];
             if ([self.nodeChar characterAtIndex:(firstChild+i)] == [word characterAtIndex:start]) {
                 int node = (firstChild+i);
                 return [self find:word with:(start + 1) at:node];
             }
         }
     } else {
-        if ([[self.nodeRank objectAtIndex:nodeNum] isEqualToString:word]) {
+        if (![[self.wordRank objectAtIndex:nodeNum] isEqualToString:@" "]) {
             return true;
         }
     }
@@ -184,11 +170,6 @@
             counter++;
         }
     }
-//    if (counter == (count + [[self.nodePointerDir objectAtIndex:dirIndex] intValue])) {
-//        NSLog(@"truee");
-//    } else {
-//        NSLog(@"flase");
-//    }
     return counter;
 }
 
