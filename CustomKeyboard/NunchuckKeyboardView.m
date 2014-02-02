@@ -49,7 +49,7 @@
 //        }
         self.wordDictionary = [[SuccinctTries alloc] init];
         queue = dispatch_queue_create("inputQueue", 0);
-        //[self.wordDictionary find:@"test" with:0 at:0];
+        NSLog(@"%d", [self.wordDictionary find:@"teet" with:0 at:0]);
     }
 
     return self;
@@ -243,9 +243,12 @@
 
 - (void) generateSuggestions
 {
-    NSArray *candidate = [self.wordDictionary getCandidateWords];
-    for (NSString *word in candidate) {
-        NSLog(@"%@", word);
+    NSSortDescriptor *lowToHigh = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSArray *candidate = [self.wordDictionary getCandidateRanks];
+    NSMutableArray *ranks = [[NSMutableArray alloc] initWithArray:candidate];
+    [ranks sortUsingDescriptors:[NSArray arrayWithObject:lowToHigh]];
+    for (NSNumber *rank in ranks) {
+        NSLog(@"%@", [[self.wordDictionary candidate] objectForKey:rank]);
     }
     [self.wordDictionary resetState];
 }

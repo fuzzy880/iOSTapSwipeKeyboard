@@ -12,7 +12,9 @@
 
 - (void) inputCharForWordPrediction:(char) character;
 
-- (NSArray *) getCandidateWords;
+- (NSArray *) getCandidateRanks;
+
+- (NSMutableDictionary *) candidate;
 
 - (void) resetState;
 

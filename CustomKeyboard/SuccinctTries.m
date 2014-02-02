@@ -20,6 +20,8 @@
 
 @property (nonatomic, strong) NSArray *nodeWords;
 
+@property (nonatomic, strong) NSArray *nodeRank;
+
 @property (nonatomic, strong) NSArray *nodePointerDir;
 
 
@@ -44,20 +46,18 @@
         self.nodeChar = [NSString stringWithContentsOfFile:charPath encoding:NSUTF8StringEncoding error:NULL];
         //nodeChar = [charString UTF8String];
         
+        NSString *rankPath = [[NSBundle mainBundle] pathForResource:@"rank_data_array_v2" ofType:@"txt"];
+        NSString* rankDump = [NSString stringWithContentsOfFile:rankPath encoding:NSUTF8StringEncoding error:NULL];
+        self.nodeWords = [rankDump componentsSeparatedByString:@"\n"];
+        
         NSString *stringPath = [[NSBundle mainBundle] pathForResource:@"string_data_array_v2" ofType:@"txt"];
         NSString* stringDump = [NSString stringWithContentsOfFile:stringPath encoding:NSUTF8StringEncoding error:NULL];
-        self.nodeWords = [stringDump componentsSeparatedByString:@"\n"];
+        self.nodeRank = [stringDump componentsSeparatedByString:@"\n"];
         
         NSString *bitDirPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_dir_v2" ofType:@"txt"];
         NSString* bitDirDump = [NSString stringWithContentsOfFile:bitDirPath encoding:NSUTF8StringEncoding error:NULL];
         self.nodePointerDir = [bitDirDump componentsSeparatedByString:@"\n"];
-//        for (NSString *word in self.nodeWords) {
-//            if (![word isEqualToString:@" "]) {
-//                if([self find:word with:0 at:0] == NO) {
-//                    NSLog(@"");
-//                }
-//            }
-//        }
+        NSLog(@"%d", [self firstChild:608]);
     }
 
     return self;
@@ -81,6 +81,7 @@
 
 - (void) runBfsIteration:(char) character
 {
+    
     //Node *temp = [self.queue objectAtIndex:0];
     //[self.queue removeObjectAtIndex:0];
     NSMutableArray *localQueue = [[NSMutableArray alloc] init];
@@ -89,10 +90,13 @@
         int numChildren = [self getChildren:[state nodeNum]];
         for (int i = 0; i < numChildren; i++) {
             if ([self.nodeChar characterAtIndex:firstChild+i] == character) {
-                //NSString *newPrefix = [[state prefix] stringByAppendingFormat:@"%c", character];
-                [localQueue addObject:[[STState alloc] initAtNode:(firstChild+i) withCurrentPrefix:state.prefix withErrorCount:state.editDist]];
+                NSString *newPrefix = [[state prefix] stringByAppendingFormat:@"%c", character];
+                [localQueue addObject:[[STState alloc] initAtNode:(firstChild+i) withCurrentPrefix:newPrefix withErrorCount:state.editDist]];
+                int test = (firstChild + i);
                 if (![[self.nodeWords objectAtIndex:(firstChild + i)] isEqualToString:@" "]) {
-                    [self.candidate setObject:@"" forKey:[self.nodeWords objectAtIndex:(firstChild + i)]];
+                    NSString *test1111 = [self.nodeWords objectAtIndex:(firstChild + i)];
+                    NSNumber *rank = [NSNumber numberWithInt:[[self.nodeWords objectAtIndex:(firstChild + i)] intValue]];
+                    [self.candidate setObject:newPrefix forKey:rank];
                     //[self.candidate setObject:@"" forKey:newPrefix];
                 }
             }
@@ -115,10 +119,11 @@
     [self runBfsIteration:character];
 }
 
-- (NSArray *) getCandidateWords
+- (NSArray *) getCandidateRanks
 {
     return [self.candidate allKeys];
 }
+
 
 - (void) resetState
 {
@@ -140,7 +145,7 @@
             }
         }
     } else {
-        if ([[self.nodeWords objectAtIndex:nodeNum] isEqualToString:word]) {
+        if ([[self.nodeRank objectAtIndex:nodeNum] isEqualToString:word]) {
             return true;
         }
     }
@@ -155,7 +160,7 @@
 - (int) getChildren:(int) nodeNum
 {
     int firstChild = [self selectNode:(nodeNum + 1)] - nodeNum;
-    int nextChild = [self selectNode:(nodeNum + 2)] - nodeNum + 1;
+    int nextChild = [self selectNode:(nodeNum + 2)] - nodeNum - 1;
     if (firstChild == -1 || nextChild == -1) {
         NSLog(@"not found");
     }
@@ -204,6 +209,7 @@
             }
         }
     }
+    
 
     return -1;
 }
