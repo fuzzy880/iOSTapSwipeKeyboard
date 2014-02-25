@@ -9,6 +9,12 @@
 #import "NunchuckKeyboardView.h"
 #include "SuccinctTries.h"
 
+#define KEYBOARDROW1 @[@"q", @"w", @"e", @"r", @"t", @"y", @"u", @"i", @"o", @"p"]
+
+#define KEYBOARDROW2 @[@"a", @"s", @"d", @"f", @"g", @"h", @"j", @"k", @"l"]
+
+#define KEYBOARDROW3 @[@"z", @"x", @"c", @"v", @"b", @"n", @"m"]
+
 @interface NunchuckKeyboardView() {
     dispatch_queue_t queue;
 }
@@ -25,6 +31,13 @@
 
 @property (nonatomic, strong) SuccinctTries *wordDictionary;
 
+@property (nonatomic) int lastRow;
+
+@property (nonatomic) int rowDirection;
+
+@property (nonatomic) int minWordLength;
+
+
 @end
 
 @implementation NunchuckKeyboardView
@@ -39,17 +52,8 @@
 		[[nib objectAtIndex:0] setFrame:frame];
         self = [nib objectAtIndex:0];
         self.userInteractionEnabled = YES;
-//        self.wordDictionary = [[STTries alloc] init];
-//        if ([self.wordDictionary doesExist:@"aberrational"])
-//        {
-//            NSLog(@"does exist");
-//        } else {
-//            NSLog(@"does not exist");
-//
-//        }
         self.wordDictionary = [[SuccinctTries alloc] init];
         queue = dispatch_queue_create("inputQueue", 0);
-        NSLog(@"%d", [self.wordDictionary find:@"teet" with:0 at:0]);
     }
 
     return self;
@@ -77,10 +81,6 @@
         _filtered = [[NSArray alloc] init];
     }
     return _filtered;
-}
-
-
-- (IBAction)returnKey:(id)sender {
 }
 
 - (void) setUpKeyboardKeys
@@ -111,46 +111,14 @@
     self.returnKey.layer.borderColor = self.returnKey.tintColor.CGColor;
 }
 
-//hold down delete
-- (IBAction)backSpacePressed {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
-        NSString *previousText = [self.delegate text];
-        if ([previousText length] > 0) {
-            previousText = [previousText substringToIndex:[previousText length] - 1];
-            [self.delegate performSelector:@selector(setText:) withObject:previousText];
-
-        }
-    }
-}
-
-- (IBAction)spacePressed {
-    //Analyze buffer
-    dispatch_async(queue, ^{
-        [self generateSuggestions];
-        [self.stringBuffer setString:@""];
-        //
-    });
-    [self appendStringToDelegate:@" "];
-}
-
-- (IBAction)capsPressed {
-}
-
-- (IBAction)numberKeyPressed {
-}
-
-- (IBAction)returnPressed {
-    [self appendStringToDelegate:@"\n"];
-}
-
 - (void)touchesBegan: (NSSet *)touches withEvent: (UIEvent *)event {
     CGPoint location = [[touches anyObject] locationInView:self];
     
     for (UIButton *b in self.characterKeys) {
         
-         if ([b subviews].count > 1) {
-         [[[b subviews] objectAtIndex:1] removeFromSuperview];
-         }
+        if ([b subviews].count > 1) {
+            [[[b subviews] objectAtIndex:1] removeFromSuperview];
+        }
         
         if(CGRectContainsPoint(b.frame, location)) {
             [self addKeyToolTip:b];
@@ -174,7 +142,6 @@
     }
 }
 
-
 - (void) touchesEnded: (NSSet *)touches withEvent: (UIEvent *)event{
     CGPoint location = [[touches anyObject] locationInView:self];
     
@@ -187,6 +154,46 @@
     }
 }
 
+
+
+- (IBAction)returnKey:(id)sender {
+}
+
+//TODO:hold down delete
+- (IBAction)backSpacePressed {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
+        NSString *previousText = [self.delegate text];
+        if ([previousText length] > 0) {
+            previousText = [previousText substringToIndex:[previousText length] - 1];
+            [self.delegate performSelector:@selector(setText:) withObject:previousText];
+
+        }
+    }
+}
+
+- (IBAction)spacePressed {
+    if ([self.stringBuffer length] == 0) {
+        return;
+    }
+    dispatch_async(queue, ^{
+        [self generateSuggestions];
+        [self.stringBuffer setString:@""];
+    });
+}
+
+- (IBAction)capsPressed {
+}
+
+- (IBAction)numberKeyPressed {
+}
+
+- (IBAction)returnPressed {
+    //Race condition
+    [self appendStringToDelegate:@"\n"];
+}
+
+
+
 - (void) addKeyToolTip: (UIButton *) key
 {
     
@@ -194,15 +201,14 @@
 
 - (void) characterEntered: (UIButton *) key
 {
-
     NSString *keyCharacter = [[[key titleLabel] text] lowercaseString];
     const char *character = [keyCharacter UTF8String];
     [self.stringBuffer appendString:keyCharacter];
     dispatch_async(queue, ^{
         [self.wordDictionary inputCharForWordPrediction:character[0]];
     });
-    
-    [self appendStringToDelegate:keyCharacter];
+    [self minWordLength:keyCharacter];
+    //[self appendStringToDelegate:keyCharacter];
 }
 
 - (void) appendStringToDelegate:(NSString *) string
@@ -247,12 +253,68 @@
     NSArray *candidate = [self.wordDictionary getCandidateRanks];
     NSMutableArray *ranks = [[NSMutableArray alloc] initWithArray:candidate];
     [ranks sortUsingDescriptors:[NSArray arrayWithObject:lowToHigh]];
+    NSString *matchedWord;
+    NSMutableArray *wordMatches = [[NSMutableArray alloc] init];
     for (NSNumber *rank in ranks) {
-        NSLog(@"%@", [[self.wordDictionary candidate] objectForKey:rank]);
+        NSString *potentialCandidate = [[self.wordDictionary candidate] objectForKey:rank];
+        if (!matchedWord) {
+            if ([potentialCandidate length] > self.minWordLength) {
+                if ([potentialCandidate characterAtIndex:([potentialCandidate length] - 1)] == ([self.stringBuffer characterAtIndex:([self.stringBuffer length] - 1)])) {
+                    matchedWord = potentialCandidate;
+                }
+            }
+        }
+        [wordMatches addObject:potentialCandidate];
+        NSLog(@"%@", potentialCandidate);
     }
+    NSLog(@"%@ %d", self.stringBuffer, self.minWordLength);
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        if (matchedWord) {
+            [self appendStringToDelegate:[matchedWord stringByAppendingString:@" "]];
+        }
+    });
+    
     [self.wordDictionary resetState];
+    [self resetMinWordLength];
 }
 
+- (void) minWordLength:(NSString *)key
+{
+    int row = [self keyboardRow:key];
+    if (row != self.lastRow) {
+        if (row < self.lastRow) {
+            if (self.rowDirection != -1) {
+                self.rowDirection = -1;
+                self.minWordLength = self.minWordLength + 1;
+            }
+        } else {
+            if (self.rowDirection != 1) {
+                self.rowDirection = 1;
+                self.minWordLength = self.minWordLength + 1;
+            }
+        }
+        self.lastRow = row;
+    }
+}
+
+- (void) resetMinWordLength
+{
+    self.minWordLength = 0;
+    self.lastRow = 0;
+    self.rowDirection = 0;
+}
+
+- (int) keyboardRow:(NSString *)key
+{
+    if ([KEYBOARDROW1 containsObject:key]) {
+        return 1;
+    } else if ([KEYBOARDROW2 containsObject:key]) {
+        return 2;
+    } else if ([KEYBOARDROW3 containsObject:key]) {
+        return 3;
+    }
+    return -1;
+}
 
 
 

@@ -20,11 +20,9 @@
 
 @property (nonatomic, strong) NSArray *wordRank;
 
-
 @property (nonatomic, strong) NSArray *nodePointerDir;
 
-
-@property (nonatomic, strong) NSMutableArray *queue;
+@property (nonatomic, strong) NSMutableArray *bfsQueue;
 
 @property (nonatomic, strong) NSMutableDictionary *candidate;
 
@@ -57,12 +55,12 @@
     return self;
 }
 
-- (NSMutableArray *) queue
+- (NSMutableArray *) bfsQueue
 {
-    if (!_queue) {
-        _queue = [[NSMutableArray alloc] init];
+    if (!_bfsQueue) {
+        _bfsQueue = [[NSMutableArray alloc] init];
     }
-    return _queue;
+    return _bfsQueue;
 }
 
 - (NSMutableDictionary *) candidate
@@ -76,31 +74,33 @@
 - (void) runBfsIteration:(char) character
 {
     NSMutableArray *localQueue = [[NSMutableArray alloc] init];
-    for (STState *state in self.queue) {
+    for (STState *state in self.bfsQueue) {
         int firstChild = [self firstChild:[state nodeNum]];
         int numChildren = [self getChildren:[state nodeNum]];
+        
         for (int i = 0; i < numChildren; i++) {
-            if ([self.nodeChar characterAtIndex:firstChild+i] == character) {
+            int nodeNum = firstChild + i;
+            if ([self.nodeChar characterAtIndex:nodeNum] == character) {
                 NSString *newPrefix = [[state prefix] stringByAppendingFormat:@"%c", character];
-                [localQueue addObject:[[STState alloc] initAtNode:(firstChild+i) withCurrentPrefix:newPrefix withErrorCount:state.editDist]];
+                [localQueue addObject:[[STState alloc] initAtNode:nodeNum withCurrentPrefix:newPrefix withErrorCount:state.editDist]];
                 if (![[self.wordRank objectAtIndex:(firstChild + i)] isEqualToString:@" "]) {
-                    NSNumber *rank = [NSNumber numberWithInt:[[self.wordRank objectAtIndex:(firstChild + i)] intValue]];
+                    NSNumber *rank = [NSNumber numberWithInt:[[self.wordRank objectAtIndex:nodeNum] intValue]];
                     [self.candidate setObject:newPrefix forKey:rank];
                 }
             }
         }
     }
-    if ([[self.queue objectAtIndex:0] nodeNum] == 0) {
-        [self.queue removeObjectAtIndex:0];
+    if ([[self.bfsQueue objectAtIndex:0] nodeNum] == 0) {
+        [self.bfsQueue removeObjectAtIndex:0];
     }
-    [self.queue addObjectsFromArray:localQueue];
+    [self.bfsQueue addObjectsFromArray:localQueue];
 }
 
 - (void) inputCharForWordPrediction:(char) character
 {
-    if ([self.queue count] == 0) {
+    if ([self.bfsQueue count] == 0) {
         NSString *prefix = [[NSString alloc] init];
-        [self.queue addObject:[[STState alloc] initAtNode:0 withCurrentPrefix:prefix withErrorCount:0]];
+        [self.bfsQueue addObject:[[STState alloc] initAtNode:0 withCurrentPrefix:prefix withErrorCount:0]];
     } else {
         [self runBfsIteration:character];
     }
@@ -115,7 +115,7 @@
 
 - (void) resetState
 {
-    [self.queue removeAllObjects];
+    [self.bfsQueue removeAllObjects];
     [self.candidate removeAllObjects];
 }
 
@@ -155,15 +155,6 @@
 
 - (int) rankNode:(int) position
 {
-//    int dirIndex = position/50;
-//    int leftover = position%50;
-//    int count = 0;
-//    for (int q = dirIndex; q <= position; q++) {
-//        if([self.nodePointers characterAtIndex:q] == '1') {
-//            count++;
-//        }
-//    }
-    
     int counter = 0;
     for (int i = 0; i <= position; i++) {
         if([self.nodePointers characterAtIndex:i] == '1') {
@@ -190,7 +181,6 @@
             }
         }
     }
-    
 
     return -1;
 }
