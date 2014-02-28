@@ -9,11 +9,19 @@
 #import "NunchuckKeyboardView.h"
 #include "SuccinctTries.h"
 
-#define KEYBOARDROW1 @[@"q", @"w", @"e", @"r", @"t", @"y", @"u", @"i", @"o", @"p"]
+#define KEYBOARDORDER @[@"q", @"w", @"e", @"r", @"t", @"y", @"u", @"i", @"o", @"p", @"a", @"s", @"d", @"f", @"g", @"h", @"j", @"k", @"l", @"z", @"x", @"c", @"v", @"b", @"n", @"m"]
 
-#define KEYBOARDROW2 @[@"a", @"s", @"d", @"f", @"g", @"h", @"j", @"k", @"l"]
+#define ROW1START 0
 
-#define KEYBOARDROW3 @[@"z", @"x", @"c", @"v", @"b", @"n", @"m"]
+#define ROW1END 9
+
+#define ROW2START 10
+
+#define ROW2END 18
+
+#define ROW3START 19
+
+#define ROW3END 25
 
 @interface NunchuckKeyboardView() {
     dispatch_queue_t queue;
@@ -205,7 +213,11 @@
     const char *character = [keyCharacter UTF8String];
     [self.stringBuffer appendString:keyCharacter];
     dispatch_async(queue, ^{
-        [self.wordDictionary inputCharForWordPrediction:character[0]];
+        if ([self.stringBuffer length] == 1) {
+            [self startFatFingerPrediction:character[0]];
+        } else {
+            [self.wordDictionary nextCharacter:character[0]];
+        }
     });
     [self minWordLength:keyCharacter];
     //[self appendStringToDelegate:keyCharacter];
@@ -246,11 +258,27 @@
     return false;
 }
 
+- (void) startFatFingerPrediction:(char) character
+{
+    NSString *key = [[NSString alloc] initWithFormat:@"%c", character];
+    
+    NSUInteger index = [KEYBOARDORDER indexOfObject:key];
+    if (index == NSNotFound) {
+        return;
+    }
+    [self.wordDictionary startWordPrediction:character];
+    if (index - 1 >= ROW1START) {
+        [self.wordDictionary startWordPrediction:[[KEYBOARDORDER objectAtIndex:index - 1] characterAtIndex:0]];
+    }
+    if (index + 1 <= ROW3END) {
+        [self.wordDictionary startWordPrediction:[[KEYBOARDORDER objectAtIndex:index + 1] characterAtIndex:0]];
+    }
+}
 
 - (void) generateSuggestions
 {
     NSSortDescriptor *lowToHigh = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
-    NSArray *candidate = [self.wordDictionary getCandidateRanks];
+    NSArray *candidate = [self.wordDictionary getWordRankings];
     NSMutableArray *ranks = [[NSMutableArray alloc] initWithArray:candidate];
     [ranks sortUsingDescriptors:[NSArray arrayWithObject:lowToHigh]];
     NSString *matchedWord;
@@ -260,7 +288,9 @@
         if (!matchedWord) {
             if ([potentialCandidate length] > self.minWordLength) {
                 if ([potentialCandidate characterAtIndex:([potentialCandidate length] - 1)] == ([self.stringBuffer characterAtIndex:([self.stringBuffer length] - 1)])) {
-                    matchedWord = potentialCandidate;
+                    if (([potentialCandidate characterAtIndex:0]) == ([self.stringBuffer characterAtIndex:0])) {
+                        matchedWord = potentialCandidate;
+                    }
                 }
             }
         }
@@ -271,6 +301,8 @@
     dispatch_sync(dispatch_get_main_queue(), ^{
         if (matchedWord) {
             [self appendStringToDelegate:[matchedWord stringByAppendingString:@" "]];
+        } else if ([wordMatches count] > 0){
+            [self appendStringToDelegate:[[wordMatches objectAtIndex:0] stringByAppendingString:@" "]];
         }
     });
     
@@ -306,11 +338,12 @@
 
 - (int) keyboardRow:(NSString *)key
 {
-    if ([KEYBOARDROW1 containsObject:key]) {
+    NSUInteger index = [KEYBOARDORDER indexOfObject:key];
+    if (index >= ROW1START && index <= ROW1END) {
         return 1;
-    } else if ([KEYBOARDROW2 containsObject:key]) {
+    } else if (index >= ROW2START && index <= ROW2END) {
         return 2;
-    } else if ([KEYBOARDROW3 containsObject:key]) {
+    } else if (index >= ROW3START && index <= ROW3END) {
         return 3;
     }
     return -1;

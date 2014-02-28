@@ -10,11 +10,13 @@
 
 @interface SuccinctTries : NSObject
 
-- (void) inputCharForWordPrediction:(char) character;
+- (void) nextCharacter:(char) character;
 
-- (NSArray *) getCandidateRanks;
+- (NSArray *) getWordRankings;
 
 - (NSMutableDictionary *) candidate;
+
+- (void) startWordPrediction:(char) character;
 
 - (void) resetState;
 
