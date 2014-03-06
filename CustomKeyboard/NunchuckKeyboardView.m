@@ -129,7 +129,6 @@
         }
         
         if(CGRectContainsPoint(b.frame, location)) {
-            [self addKeyToolTip:b];
             [self characterEntered:b];
             [self saveButtonHistory:b];
         }
@@ -141,7 +140,6 @@
     
     for (UIButton *b in self.characterKeys) {
         if(CGRectContainsPoint(b.frame, location)) {
-            [self addKeyToolTip:b];
             if (![self isButtonRepeated:b]) {
                 [self saveButtonHistory:b];
                 [self characterEntered:b];
@@ -167,14 +165,12 @@
 - (IBAction)returnKey:(id)sender {
 }
 
-//TODO:hold down delete
 - (IBAction)backSpacePressed {
     if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
         NSString *previousText = [self.delegate text];
         if ([previousText length] > 0) {
             previousText = [previousText substringToIndex:[previousText length] - 1];
             [self.delegate performSelector:@selector(setText:) withObject:previousText];
-
         }
     }
 }
@@ -189,23 +185,18 @@
     });
 }
 
-- (IBAction)capsPressed {
-}
-
-- (IBAction)numberKeyPressed {
-}
-
-- (IBAction)returnPressed {
-    //Race condition
-    [self appendStringToDelegate:@"\n"];
-}
-
-
-
-- (void) addKeyToolTip: (UIButton *) key
+- (IBAction)capsPressed
 {
-    
 }
+
+- (IBAction)numberKeyPressed
+{
+}
+
+- (IBAction)returnPressed
+{
+}
+
 
 - (void) characterEntered: (UIButton *) key
 {

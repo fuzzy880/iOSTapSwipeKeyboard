@@ -47,11 +47,9 @@
         NSString* rankDump = [NSString stringWithContentsOfFile:rankPath encoding:NSUTF8StringEncoding error:NULL];
         self.wordRank = [rankDump componentsSeparatedByString:@"\n"];
         
-        
         NSString *bitDirPath = [[NSBundle mainBundle] pathForResource:@"trie_bit_dir_v2" ofType:@"txt"];
         NSString* bitDirDump = [NSString stringWithContentsOfFile:bitDirPath encoding:NSUTF8StringEncoding error:NULL];
         self.nodeBitVector = [bitDirDump componentsSeparatedByString:@"\n"];
-        NSLog(@"%d", [self firstChild:608]);
     }
 
     return self;
@@ -102,7 +100,7 @@
     }
     int qWin = [[self.nodeBitVector objectAtIndex:dirIndex] intValue];
     for (int q = qWin; q < BIT_COUNT; q++) {
-        if([self.nodePointers characterAtIndex:q] == '0') {
+        if ([self.nodePointers characterAtIndex:q] == '0') {
             count--;
             if (count == 0) {
                 return q;
@@ -220,9 +218,5 @@
     }
     return false;
 }
-
-
-
-
 
 @end

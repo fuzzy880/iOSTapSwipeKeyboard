@@ -15,15 +15,8 @@
 		830C0386189DAFBF0062E94B /* string_data_array_v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 830C0384189DAFBF0062E94B /* string_data_array_v2.txt */; };
 		830C0388189DB3520062E94B /* rank_data_array_v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 830C0387189DB3520062E94B /* rank_data_array_v2.txt */; };
 		83175F7C189C363800E8487A /* STState.m in Sources */ = {isa = PBXBuildFile; fileRef = 83175F7B189C363800E8487A /* STState.m */; };
-		83175F82189CD48100E8487A /* trie_bit_dir.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83175F81189CD48100E8487A /* trie_bit_dir.txt */; };
-		8322E2BD189B6A1700E9F090 /* string_data_array1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8322E2BC189B6A1700E9F090 /* string_data_array1.txt */; };
 		832EFB2F188CB6E1007BB73B /* PassingTouchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */; };
-		83864CCA18978FD300BBAF5D /* words in Resources */ = {isa = PBXBuildFile; fileRef = 83864CC918978FD300BBAF5D /* words */; };
-		83BA42C61890A76500495E0E /* wordlist.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BA42C51890A76500495E0E /* wordlist.txt */; };
 		83BEBCD1189B516100D143DC /* SuccinctTries.m in Sources */ = {isa = PBXBuildFile; fileRef = 83BEBCD0189B516100D143DC /* SuccinctTries.m */; };
-		83BEBCD5189B519300D143DC /* char_data_array.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BEBCD2189B519300D143DC /* char_data_array.txt */; };
-		83BEBCD7189B519300D143DC /* trie_bit_array.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BEBCD4189B519300D143DC /* trie_bit_array.txt */; };
-		83BEBCDD189B659500D143DC /* string_data_array.txt in Resources */ = {isa = PBXBuildFile; fileRef = 83BEBCDC189B659500D143DC /* string_data_array.txt */; };
 		83D8D838188B9969006C1E3D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D837188B9969006C1E3D /* Foundation.framework */; };
 		83D8D83A188B9969006C1E3D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D839188B9969006C1E3D /* CoreGraphics.framework */; };
 		83D8D83C188B9969006C1E3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D83B188B9969006C1E3D /* UIKit.framework */; };
@@ -39,7 +32,6 @@
 		83D8D85C188B9969006C1E3D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 83D8D83B188B9969006C1E3D /* UIKit.framework */; };
 		83D8D864188B9969006C1E3D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 83D8D862188B9969006C1E3D /* InfoPlist.strings */; };
 		83D8D866188B9969006C1E3D /* CustomKeyboardTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 83D8D865188B9969006C1E3D /* CustomKeyboardTests.m */; };
-		83D8D877188BAB86006C1E3D /* iOS_Keyboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 83D8D876188BAB86006C1E3D /* iOS_Keyboard.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,17 +55,10 @@
 		830C0387189DB3520062E94B /* rank_data_array_v2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = rank_data_array_v2.txt; sourceTree = "<group>"; };
 		83175F7A189C363800E8487A /* STState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STState.h; sourceTree = "<group>"; };
 		83175F7B189C363800E8487A /* STState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = STState.m; sourceTree = "<group>"; };
-		83175F81189CD48100E8487A /* trie_bit_dir.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trie_bit_dir.txt; sourceTree = "<group>"; };
-		8322E2BC189B6A1700E9F090 /* string_data_array1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string_data_array1.txt; sourceTree = "<group>"; };
 		832EFB2D188CB6E1007BB73B /* PassingTouchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PassingTouchButton.h; sourceTree = "<group>"; };
 		832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PassingTouchButton.m; sourceTree = "<group>"; };
-		83864CC918978FD300BBAF5D /* words */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = words; sourceTree = "<group>"; };
-		83BA42C51890A76500495E0E /* wordlist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wordlist.txt; sourceTree = "<group>"; };
 		83BEBCCF189B516100D143DC /* SuccinctTries.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuccinctTries.h; sourceTree = "<group>"; };
 		83BEBCD0189B516100D143DC /* SuccinctTries.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuccinctTries.m; sourceTree = "<group>"; };
-		83BEBCD2189B519300D143DC /* char_data_array.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = char_data_array.txt; sourceTree = "<group>"; };
-		83BEBCD4189B519300D143DC /* trie_bit_array.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = trie_bit_array.txt; sourceTree = "<group>"; };
-		83BEBCDC189B659500D143DC /* string_data_array.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string_data_array.txt; sourceTree = "<group>"; };
 		83D8D834188B9969006C1E3D /* CustomKeyboard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CustomKeyboard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		83D8D837188B9969006C1E3D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		83D8D839188B9969006C1E3D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -94,7 +79,6 @@
 		83D8D861188B9969006C1E3D /* CustomKeyboardTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CustomKeyboardTests-Info.plist"; sourceTree = "<group>"; };
 		83D8D863188B9969006C1E3D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		83D8D865188B9969006C1E3D /* CustomKeyboardTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomKeyboardTests.m; sourceTree = "<group>"; };
-		83D8D876188BAB86006C1E3D /* iOS_Keyboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iOS_Keyboard.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,14 +153,6 @@
 				832EFB2E188CB6E1007BB73B /* PassingTouchButton.m */,
 				83D8D84F188B9969006C1E3D /* ViewController.h */,
 				83D8D850188B9969006C1E3D /* ViewController.m */,
-				83D8D876188BAB86006C1E3D /* iOS_Keyboard.png */,
-				83BA42C51890A76500495E0E /* wordlist.txt */,
-				83864CC918978FD300BBAF5D /* words */,
-				83BEBCD2189B519300D143DC /* char_data_array.txt */,
-				83BEBCD4189B519300D143DC /* trie_bit_array.txt */,
-				83BEBCDC189B659500D143DC /* string_data_array.txt */,
-				8322E2BC189B6A1700E9F090 /* string_data_array1.txt */,
-				83175F81189CD48100E8487A /* trie_bit_dir.txt */,
 				83D8D852188B9969006C1E3D /* Images.xcassets */,
 				830C037F189DAF740062E94B /* trie_bit_array_v2.txt */,
 				830C0380189DAF740062E94B /* trie_bit_dir_v2.txt */,
@@ -302,18 +278,10 @@
 				830C0381189DAF740062E94B /* trie_bit_array_v2.txt in Resources */,
 				83D8D84E188B9969006C1E3D /* Main_iPad.storyboard in Resources */,
 				83045841188C861200CDB2FC /* NunchuckKeyboard.xib in Resources */,
-				83D8D877188BAB86006C1E3D /* iOS_Keyboard.png in Resources */,
-				83BEBCD7189B519300D143DC /* trie_bit_array.txt in Resources */,
-				83175F82189CD48100E8487A /* trie_bit_dir.txt in Resources */,
 				830C0386189DAFBF0062E94B /* string_data_array_v2.txt in Resources */,
-				83BA42C61890A76500495E0E /* wordlist.txt in Resources */,
-				83864CCA18978FD300BBAF5D /* words in Resources */,
 				83D8D853188B9969006C1E3D /* Images.xcassets in Resources */,
-				83BEBCD5189B519300D143DC /* char_data_array.txt in Resources */,
 				83D8D84B188B9969006C1E3D /* Main_iPhone.storyboard in Resources */,
 				83D8D842188B9969006C1E3D /* InfoPlist.strings in Resources */,
-				83BEBCDD189B659500D143DC /* string_data_array.txt in Resources */,
-				8322E2BD189B6A1700E9F090 /* string_data_array1.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
