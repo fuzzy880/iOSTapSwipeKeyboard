@@ -9,10 +9,10 @@
 #import "SuccinctTries.h"
 #import "STState.h"
 
-#define NODE_COUNT 758659
 #define BIT_COUNT 1517319
 
 @interface SuccinctTries()
+
 
 @property (nonatomic, strong) NSString *nodePointers;
 
@@ -28,10 +28,12 @@
 
 @property (nonatomic, strong) NSMutableDictionary *prefixes;
 
+
 @end
 
 
 @implementation SuccinctTries
+
 
 - (id) init
 {
@@ -79,26 +81,21 @@
     return _prefixes;
 }
 
-- (int) rankNode:(int) position
-{
-    int counter = 0;
-    for (int i = 0; i <= position; i++) {
-        if([self.nodePointers characterAtIndex:i] == '1') {
-            counter++;
-        }
-    }
-    return counter;
-}
-
+/**
+ * Finds the position of the ith 0 bit
+ *
+ * Determines the position of the ith 0 bit by lookup into a directory that
+ * relates the number of 0 bits seen at every 50th position.  The remainder is
+ * then counted up from that position.  If there is no ith 0 bit, -1 is returned.
+ */
 - (int) selectNode:(int) position
 {
-    int dirIndex = position/50;
-    
-    int count = position - dirIndex*50;
-    if (dirIndex*50 > 0) {
+    int bitDirIndex = position/50;
+    int count = position - bitDirIndex*50;
+    if (bitDirIndex*50 > 0) {
         count++;
     }
-    int qWin = [[self.nodeBitVector objectAtIndex:dirIndex] intValue];
+    int qWin = [[self.nodeBitVector objectAtIndex:bitDirIndex] intValue];
     for (int q = qWin; q < BIT_COUNT; q++) {
         if ([self.nodePointers characterAtIndex:q] == '0') {
             count--;
@@ -111,11 +108,19 @@
     return -1;
 }
 
+/**
+ * Determines the first child's node number of the given node
+ *
+ */
 - (int) firstChild:(int) nodeNum
 {
     return ([self selectNode:(nodeNum + 1)] - nodeNum);
 }
 
+/**
+ * Determines the number of children for a given node
+ *
+ */
 - (int) getChildren:(int) nodeNum
 {
     int firstChild = [self selectNode:(nodeNum + 1)] - nodeNum;
@@ -126,6 +131,10 @@
     return nextChild - firstChild;
 }
 
+/**
+ * Add the state to queue if it does not exist already
+ *
+ */
 - (void) addStateToQueue:(STState *) state
 {
     if ([self.prefixes objectForKey:state.prefix] == nil) {
@@ -134,6 +143,11 @@
     }
 }
 
+
+/**
+ * Add an array of states to the queue
+ *
+ */
 - (void) addStatesToQueue:(NSMutableArray *) states
 {
     for (STState *state in states) {
@@ -141,6 +155,10 @@
     }
 }
 
+/**
+ * Start the word prediction heuristic with the first character
+ *
+ */
 - (void) startWordPrediction:(char) character
 {
     NSString *prefix = [[NSString alloc] initWithFormat:@"%c", character];
@@ -156,6 +174,13 @@
     }
 }
 
+/**
+ * Run an iteration of BFS with the next character
+ *
+ * Check the children of every state and if a child matches the character, push
+ * the state onto the queue.  If discovered a node that makes up a word, add word
+ * and rank to list of candidates
+ */
 - (void) runBfsIteration:(char) character
 {
     NSMutableArray *localQueue = [[NSMutableArray alloc] init];
@@ -166,12 +191,8 @@
         for (int i = 0; i < numChildren; i++) {
             int nodeNum = firstChild + i;
             if ([self.nodeChar characterAtIndex:nodeNum] == character) {
-                int editDist = state.editDist;
-                if ([self.nodeChar characterAtIndex:nodeNum] != character) {
-                    //editDist++;
-                }
                 NSString *newPrefix = [[state prefix] stringByAppendingFormat:@"%c", character];
-                [localQueue addObject:[[STState alloc] initAtNode:nodeNum withCurrentPrefix:newPrefix withErrorCount:editDist]];
+                [localQueue addObject:[[STState alloc] initAtNode:nodeNum withCurrentPrefix:newPrefix withErrorCount:state.editDist]];
                 if (![[self.wordRank objectAtIndex:(firstChild + i)] isEqualToString:@" "]) {
                     NSNumber *rank = [NSNumber numberWithInt:[[self.wordRank objectAtIndex:nodeNum] intValue]];
                     [self.candidate setObject:newPrefix forKey:rank];
@@ -182,17 +203,27 @@
     [self addStatesToQueue:localQueue];
 }
 
+/**
+ * Run a BFS iteration for the character twice to handle repeated characters
+ */
 - (void) nextCharacter:(char) character
 {
     [self runBfsIteration:character];
     [self runBfsIteration:character];
 }
 
+/**
+ * Get the discovered words and its frequency ranking
+ *
+ */
 - (NSArray *) getWordRankings
 {
     return [self.candidate allKeys];
 }
 
+/**
+ * Flush the state of heuristic
+ */
 - (void) resetState
 {
     [self.bfsQueue removeAllObjects];
@@ -200,6 +231,9 @@
     [self.prefixes removeAllObjects];
 }
 
+/**
+ * Checks if word exists in trie
+ */
 - (BOOL) find:(NSString *)word with:(int)start at:(int)nodeNum
 {
     if (start < [word length]) {

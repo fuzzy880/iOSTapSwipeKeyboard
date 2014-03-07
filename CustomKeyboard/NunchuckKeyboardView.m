@@ -123,11 +123,6 @@
     CGPoint location = [[touches anyObject] locationInView:self];
     
     for (UIButton *b in self.characterKeys) {
-        
-        if ([b subviews].count > 1) {
-            [[[b subviews] objectAtIndex:1] removeFromSuperview];
-        }
-        
         if(CGRectContainsPoint(b.frame, location)) {
             [self characterEntered:b];
             [self saveButtonHistory:b];
@@ -150,75 +145,12 @@
 
 - (void) touchesEnded: (NSSet *)touches withEvent: (UIEvent *)event{
     CGPoint location = [[touches anyObject] locationInView:self];
-    
     for (UIButton *b in self.characterKeys) {
         if(CGRectContainsPoint(b.frame, location)) {
             if (![self isButtonRepeated:b]) {
                 [self characterEntered:b];
             }
         }
-    }
-}
-
-
-
-- (IBAction)returnKey:(id)sender {
-}
-
-- (IBAction)backSpacePressed {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
-        NSString *previousText = [self.delegate text];
-        if ([previousText length] > 0) {
-            previousText = [previousText substringToIndex:[previousText length] - 1];
-            [self.delegate performSelector:@selector(setText:) withObject:previousText];
-        }
-    }
-}
-
-- (IBAction)spacePressed {
-    if ([self.stringBuffer length] == 0) {
-        return;
-    }
-    dispatch_async(queue, ^{
-        [self generateSuggestions];
-        [self.stringBuffer setString:@""];
-    });
-}
-
-- (IBAction)capsPressed
-{
-}
-
-- (IBAction)numberKeyPressed
-{
-}
-
-- (IBAction)returnPressed
-{
-}
-
-
-- (void) characterEntered: (UIButton *) key
-{
-    NSString *keyCharacter = [[[key titleLabel] text] lowercaseString];
-    const char *character = [keyCharacter UTF8String];
-    [self.stringBuffer appendString:keyCharacter];
-    dispatch_async(queue, ^{
-        if ([self.stringBuffer length] == 1) {
-            [self startFatFingerPrediction:character[0]];
-        } else {
-            [self.wordDictionary nextCharacter:character[0]];
-        }
-    });
-    [self minWordLength:keyCharacter];
-    //[self appendStringToDelegate:keyCharacter];
-}
-
-- (void) appendStringToDelegate:(NSString *) string
-{
-    if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
-        NSString *previousText = [self.delegate text];
-        [self.delegate performSelector:@selector(setText:) withObject:[previousText stringByAppendingString:string]];
     }
 }
 
@@ -249,6 +181,71 @@
     return false;
 }
 
+
+- (IBAction)returnKey:(id)sender {
+}
+
+- (IBAction)capsPressed
+{
+}
+
+- (IBAction)numberKeyPressed
+{
+}
+
+- (IBAction)returnPressed
+{
+}
+
+- (IBAction)backSpacePressed {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
+        NSString *previousText = [self.delegate text];
+        if ([previousText length] > 0) {
+            previousText = [previousText substringToIndex:[previousText length] - 1];
+            [self.delegate performSelector:@selector(setText:) withObject:previousText];
+        }
+    }
+}
+
+- (IBAction)spacePressed {
+    if ([self.stringBuffer length] == 0) {
+        return;
+    }
+    dispatch_async(queue, ^{
+        [self generateSuggestions];
+        [self.stringBuffer setString:@""];
+    });
+}
+
+- (void) characterEntered: (UIButton *) key
+{
+    NSString *keyCharacter = [[[key titleLabel] text] lowercaseString];
+    char character = [keyCharacter characterAtIndex:0];
+    [self.stringBuffer appendString:keyCharacter];
+    dispatch_async(queue, ^{
+        if ([self.stringBuffer length] == 1) {
+            [self startFatFingerPrediction:character];
+        } else {
+            [self.wordDictionary nextCharacter:character];
+        }
+    });
+    [self minWordLength:keyCharacter];
+    //[self appendStringToDelegate:keyCharacter];
+}
+
+- (void) appendStringToDelegate:(NSString *) string
+{
+    if (self.delegate && [self.delegate respondsToSelector:@selector(setText:)]) {
+        NSString *previousText = [self.delegate text];
+        [self.delegate performSelector:@selector(setText:) withObject:[previousText stringByAppendingString:string]];
+    }
+}
+
+
+/**
+ * Start word heuristics with the first character the user entered and its adjacent characters on the keyboard
+ *
+ */
 - (void) startFatFingerPrediction:(char) character
 {
     NSString *key = [[NSString alloc] initWithFormat:@"%c", character];
@@ -266,34 +263,37 @@
     }
 }
 
+/**
+ * Choose a word from list of candidates that has the highest ranking or the first and last character
+ * matches what first and last character of user input.
+ *
+ */
 - (void) generateSuggestions
 {
-    NSSortDescriptor *lowToHigh = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
-    NSArray *candidate = [self.wordDictionary getWordRankings];
-    NSMutableArray *ranks = [[NSMutableArray alloc] initWithArray:candidate];
-    [ranks sortUsingDescriptors:[NSArray arrayWithObject:lowToHigh]];
     NSString *matchedWord;
-    NSMutableArray *wordMatches = [[NSMutableArray alloc] init];
+    NSSortDescriptor *lowToHigh = [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES];
+    NSMutableArray *ranks = [[NSMutableArray alloc] initWithArray:[self.wordDictionary getWordRankings]];
+    [ranks sortUsingDescriptors:[NSArray arrayWithObject:lowToHigh]];
+    
     for (NSNumber *rank in ranks) {
-        NSString *potentialCandidate = [[self.wordDictionary candidate] objectForKey:rank];
+        NSString *candidate = [[self.wordDictionary candidate] objectForKey:rank];
         if (!matchedWord) {
-            if ([potentialCandidate length] > self.minWordLength) {
-                if ([potentialCandidate characterAtIndex:([potentialCandidate length] - 1)] == ([self.stringBuffer characterAtIndex:([self.stringBuffer length] - 1)])) {
-                    if (([potentialCandidate characterAtIndex:0]) == ([self.stringBuffer characterAtIndex:0])) {
-                        matchedWord = potentialCandidate;
-                    }
-                }
+            matchedWord = candidate;
+        }
+        if ([candidate length] > self.minWordLength) {
+            if (([candidate characterAtIndex:([candidate length] - 1)] == [self.stringBuffer characterAtIndex:([self.stringBuffer length] - 1)])
+                && ([candidate characterAtIndex:0] == [self.stringBuffer characterAtIndex:0])) {
+                    matchedWord = candidate;
+                    break;
             }
         }
-        [wordMatches addObject:potentialCandidate];
-        NSLog(@"%@", potentialCandidate);
+        NSLog(@"%@", candidate);
     }
     NSLog(@"%@ %d", self.stringBuffer, self.minWordLength);
+    
     dispatch_sync(dispatch_get_main_queue(), ^{
         if (matchedWord) {
             [self appendStringToDelegate:[matchedWord stringByAppendingString:@" "]];
-        } else if ([wordMatches count] > 0){
-            [self appendStringToDelegate:[[wordMatches objectAtIndex:0] stringByAppendingString:@" "]];
         }
     });
     
@@ -301,6 +301,30 @@
     [self resetMinWordLength];
 }
 
+/**
+ * Get the row the pressed key is in
+ *
+ */
+- (int) keyboardRow:(NSString *)key
+{
+    NSUInteger index = [KEYBOARDORDER indexOfObject:key];
+    if (index >= ROW1START && index <= ROW1END) {
+        return 1;
+    } else if (index >= ROW2START && index <= ROW2END) {
+        return 2;
+    } else if (index >= ROW3START && index <= ROW3END) {
+        return 3;
+    }
+    return -1;
+}
+
+/**
+ * Get the minimum word length of an inputted sequence
+ *
+ * Row transitions indicate a character will exist in the final word
+ * To determine the minimum word length, increment the count when the
+ * the swipe changes vertical direction.
+ */
 - (void) minWordLength:(NSString *)key
 {
     int row = [self keyboardRow:key];
@@ -326,20 +350,5 @@
     self.lastRow = 0;
     self.rowDirection = 0;
 }
-
-- (int) keyboardRow:(NSString *)key
-{
-    NSUInteger index = [KEYBOARDORDER indexOfObject:key];
-    if (index >= ROW1START && index <= ROW1END) {
-        return 1;
-    } else if (index >= ROW2START && index <= ROW2END) {
-        return 2;
-    } else if (index >= ROW3START && index <= ROW3END) {
-        return 3;
-    }
-    return -1;
-}
-
-
 
 @end
